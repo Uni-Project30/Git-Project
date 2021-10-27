@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "836229581118",
+    "project_id": "uni-trelloclone",
+    "storage_bucket": "uni-trelloclone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836229581118:android:6045c280acf094d7b6046f",
+        "android_client_info": {
+          "package_name": "com.example.ugp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836229581118-sv9759kdq1ncnjg9omrnsvimo2fg1c52.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ugp",
+            "certificate_hash": "ed3211d548eb238292ef0f0a52f5e0904557f15e"
+          }
+        },
+        {
+          "client_id": "836229581118-d1dqqgdi843i9jiguru0irsnubicssot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNmUNPuEpC54elpMjZ6Dlv5a8CWQBioBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836229581118-d1dqqgdi843i9jiguru0irsnubicssot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

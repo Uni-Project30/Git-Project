@@ -13,10 +13,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.ugp.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -28,35 +30,33 @@ class MainActivity : AppCompatActivity() {
     private lateinit var side_nav: NavigationView
     lateinit var toolbar: Toolbar
 
+    private lateinit var binding : ActivityMainBinding
 
-    //variables for signout
+    //variables for sign Out
     private lateinit var mGoogleSignInClient: GoogleSignInClient
-    val mAuth = Firebase.auth
+    private val mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        //variables for assigning image,name and emailid
-        var image = findViewById<ImageView>(R.id.nav_image)
-        var name = findViewById<TextView>(R.id.nav_name)
-        var email = findViewById<TextView>(R.id.nav_email)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
-        // assigning values to information variables
-        email.text = mAuth.currentUser!!.email
-        name.text = mAuth.currentUser!!.displayName
-        if (mAuth.currentUser!!.photoUrl != null) {
-            val url = mAuth.currentUser!!.photoUrl
-            Glide.with(this)
-                .load(url)
-                .into(image)
-        }
+
+
+
 
         //assigning variables of side nav
-        side_nav = findViewById(R.id.side_nav)
+        side_nav = findViewById(R.id.side_nav1)
         drawer = findViewById(R.id.drawer_layout)
         toolbar = findViewById(R.id.app_bar)
+
+
+        val header = side_nav.getHeaderView(0)
+        //variables for assigning image,name and emailid
+        var image = header.findViewById<ImageView>(R.id.nav_image)
+        var name = header.findViewById<TextView>(R.id.nav_name)
+        var email = header.findViewById<TextView>(R.id.nav_email)
 
 
         //setting action bar for side navigation
@@ -67,6 +67,17 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+
+
+        // assigning values to information variables
+        name.text = mAuth.currentUser!!.displayName.toString()
+        email.text = mAuth.currentUser!!.email.toString()
+        if (mAuth.currentUser!!.photoUrl != null) {
+            val url = mAuth.currentUser!!.photoUrl
+            Glide.with(this)
+                .load(url)
+                .into(image)
+        }
 
         //setting onClick for side nav options
 
@@ -129,7 +140,7 @@ class MainActivity : AppCompatActivity() {
     // function for signing out
     private fun signOut() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .build()
 
