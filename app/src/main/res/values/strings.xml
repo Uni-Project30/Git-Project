@@ -8,4 +8,15 @@
     <string name="invite_members">Invite Members</string>
     <string name="set_favourite">Set as Favourite</string>
     <string name="about_board">About</string>
+
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="web_client_id" translatable="false">836229581118-d1dqqgdi843i9jiguru0irsnubicssot.apps.googleusercontent.com</string>
 </resources>

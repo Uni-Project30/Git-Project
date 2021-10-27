@@ -10,19 +10,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UGP">
         <activity
-            android:name=".AboutActivity"
-            android:exported="false" />
+            android:name=".PhoneLoginActivity"
+            android:exported="true" />
         <activity
-            android:name=".BoardActivity"
-            android:exported="false" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".MainActivity">
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName=".BoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BoardActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

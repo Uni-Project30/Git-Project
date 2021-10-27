@@ -20,11 +20,11 @@
             android:id="@+id/app_bar"
             />
     </RelativeLayout>
-    //Navigation view for side_nav
+<!--     Navigation view for side_nav-->
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/side_nav"
+        android:id="@+id/side_nav1"
         app:headerLayout="@layout/side_nav_header"
         app:menu="@menu/side_nav"
         android:layout_gravity="start">
@@ -32,7 +32,7 @@
     </com.google.android.material.navigation.NavigationView>
 
 
-    // Add the design elements of the main activity in scroll view
+<!--    Add the design elements of the main activity in scroll view-->
 <!--    <ScrollView-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent" />-->
