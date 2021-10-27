@@ -46,10 +46,13 @@ dependencies {
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx:23.0.4'
 
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
 
+ // country code picker
+    implementation 'com.hbb20:ccp:2.5.4'
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

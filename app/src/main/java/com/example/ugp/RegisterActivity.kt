@@ -65,24 +65,30 @@ class RegisterActivity : AppCompatActivity() {
     private fun registerUser(email: String, password: String, name: String) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
+            .addOnCompleteListener { task ->
 
-                if (it.isSuccessful){
+                if (task.isSuccessful){
 
                     userProfileChangeRequest {
                         displayName = name
                     }
-                    mAuth.updateCurrentUser(mAuth.currentUser!!)
+                    mAuth.updateCurrentUser(mAuth.currentUser!!).addOnCompleteListener {
+                        if (it.isSuccessful){
+                            Log.d("name situation","name updated")
+                        }else{
+                            Log.d("RegisterActivity",it.exception?.message.toString())
+                        }
+                    }
 
                     Toast.makeText(this, mAuth.currentUser!!.displayName.toString(), Toast.LENGTH_SHORT).show()
-                    Log.d("RegisterActivity", mAuth.currentUser!!.displayName.toString())
+                    Log.d("name final", mAuth.currentUser!!.displayName.toString())
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-                   /* val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                    finish()*/
+                    finish()
 
                 }else {
-                    Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
                 }
 
             }

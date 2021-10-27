@@ -51,10 +51,12 @@ class MainActivity : AppCompatActivity() {
         drawer = findViewById(R.id.drawer_layout)
         toolbar = findViewById(R.id.app_bar)
 
+
+        val header = side_nav.getHeaderView(0)
         //variables for assigning image,name and emailid
-        var image = side_nav.findViewById<ImageView>(R.id.nav_image)
-        var name = side_nav.findViewById<TextView>(R.id.nav_name)
-        var email = side_nav.findViewById<TextView>(R.id.nav_email)
+        var image = header.findViewById<ImageView>(R.id.nav_image)
+        var name = header.findViewById<TextView>(R.id.nav_name)
+        var email = header.findViewById<TextView>(R.id.nav_email)
 
 
         //setting action bar for side navigation
