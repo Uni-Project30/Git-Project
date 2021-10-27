@@ -2,5 +2,10 @@
     <string name="app_name">UGP</string>
     <string name="open">Open Navigation drawer</string>
     <string name="close">Close Navigation drawer</string>
-<!--    <string name="default_web_client_id">default_web_client_id</string>-->
+    <!--    <string name="default_web_client_id">default_web_client_id</string>-->
+    
+    <string name="board_members">Members</string>
+    <string name="invite_members">Invite Members</string>
+    <string name="set_favourite">Set as Favourite</string>
+    <string name="about_board">About</string>
 </resources>
