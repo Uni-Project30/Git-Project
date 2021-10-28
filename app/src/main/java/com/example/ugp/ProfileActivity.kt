@@ -56,11 +56,15 @@ class ProfileActivity : AppCompatActivity() {
             db.collection("users").document(mAuth.currentUser!!.uid)
                 .get()
                 .addOnSuccessListener {
-                    name.setText(it.getString("name"))
+
                     num.setText(it.getString("phone"))
-                    if(name.toString()=="" || name.toString().isEmpty())
+                    if(mAuth.currentUser!!.displayName.isNullOrEmpty())
                     {
-                        name.setText(mAuth.currentUser!!.displayName.toString())
+                        name.setText(it.getString("name"))
+                    }
+                    else
+                    {
+                        name.setText(mAuth.currentUser!!.displayName)
                     }
                     if(mAuth.currentUser!!.photoUrl!=null)
                     {

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var side_nav: NavigationView
     lateinit var toolbar: Toolbar
     val db = Firebase.firestore
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     //variables for sign Out
     private lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -65,16 +65,20 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
-
         // assigning values to information variables
-        db.collection("users").document(mAuth.currentUser!!.uid)
-            .get()
-            .addOnSuccessListener {
-                name.text = it.getString("name")
-            }
-        if(name.toString()=="")
+
+//        val n= mAuth.currentUser!!.displayName
+        if(mAuth.currentUser!!.displayName.isNullOrEmpty())
         {
-            name.text = mAuth.currentUser!!.displayName.toString()
+            db.collection("users").document(mAuth.currentUser!!.uid)
+                .get()
+                .addOnSuccessListener {
+                    name.text = it.getString("name")
+                }
+        }
+        else
+        {
+            name.text = mAuth.currentUser!!.displayName
         }
         email.text = mAuth.currentUser!!.email.toString()
         if (mAuth.currentUser!!.photoUrl != null) {
