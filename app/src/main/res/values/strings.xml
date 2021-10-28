@@ -18,5 +18,9 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="web_client_id" translatable="false">836229581118-d1dqqgdi843i9jiguru0irsnubicssot.apps.googleusercontent.com</string>
+<!--<<<<<<< Updated upstream-->
+<!--    <string name="web_client_id" translatable="false">836229581118-d1dqqgdi843i9jiguru0irsnubicssot.apps.googleusercontent.com</string>-->
+=======
+    <string name="web_client_id">836229581118-d1dqqgdi843i9jiguru0irsnubicssot.apps.googleusercontent.com</string>
+>>>>>>> Stashed changes
 </resources>

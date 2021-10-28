@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawer: DrawerLayout
     private lateinit var side_nav: NavigationView
     lateinit var toolbar: Toolbar
-
+    val db = Firebase.firestore
     private lateinit var binding : ActivityMainBinding
 
     //variables for sign Out
@@ -40,10 +41,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-
-
 
 
         //assigning variables of side nav
@@ -70,7 +67,15 @@ class MainActivity : AppCompatActivity() {
 
 
         // assigning values to information variables
-        name.text = mAuth.currentUser!!.displayName.toString()
+        db.collection("users").document(mAuth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                name.text = it.getString("name")
+            }
+        if(name.toString()=="")
+        {
+            name.text = mAuth.currentUser!!.displayName.toString()
+        }
         email.text = mAuth.currentUser!!.email.toString()
         if (mAuth.currentUser!!.photoUrl != null) {
             val url = mAuth.currentUser!!.photoUrl
@@ -94,7 +99,6 @@ class MainActivity : AppCompatActivity() {
                     // this will take to profile activity
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
-                    finish()
                 }
                 R.id.logout -> {
                     // This will show a dialog box foe logging out
