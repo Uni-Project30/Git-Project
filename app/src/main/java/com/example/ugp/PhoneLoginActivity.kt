@@ -8,8 +8,9 @@ import android.view.View
 import android.widget.Toast
 import com.example.ugp.databinding.ActivityPhoneLoginBinding
 import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
 
 class PhoneLoginActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class PhoneLoginActivity : AppCompatActivity() {
 
     private var storedVerificationId : String? = null
     private var resendToken : String? = null
+    private val db = Firebase.firestore
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,7 @@ class PhoneLoginActivity : AppCompatActivity() {
 
             val checkNumber = binding.etPhoneNumber.text.toString()
             val phoneNumber = binding.countryCodePicker.fullNumberWithPlus
+            val name = binding.etNamePhoneLogin.text.toString()
 
             // checking if number is valid
             if (!binding.countryCodePicker.isValidFullNumber){
@@ -53,6 +56,11 @@ class PhoneLoginActivity : AppCompatActivity() {
                 .build()
             PhoneAuthProvider.verifyPhoneNumber(options)
 
+            // hiding the after receive OTP widgets
+            binding.etEnterOtp.visibility = View.VISIBLE
+            binding.tvResendOtp.visibility = View.VISIBLE
+            binding.btVerifyOtp.visibility = View.VISIBLE
+
         }
 
         // on Click of Button ReSend OTP
@@ -61,6 +69,8 @@ class PhoneLoginActivity : AppCompatActivity() {
             binding.countryCodePicker.registerCarrierNumberEditText(binding.etPhoneNumber)
 
             val phoneNumber = binding.countryCodePicker.fullNumberWithPlus
+            val name = binding.etNamePhoneLogin.text.toString()
+
             // sending otp
             val options = PhoneAuthOptions.newBuilder(mAuth)
                 .setPhoneNumber(phoneNumber)       // Phone number to verify
@@ -70,12 +80,17 @@ class PhoneLoginActivity : AppCompatActivity() {
                 .build()
             PhoneAuthProvider.verifyPhoneNumber(options)
 
+
         }
 
 
         binding.btVerifyOtp.setOnClickListener {
 
             val code = binding.etEnterOtp.text.toString()
+            binding.countryCodePicker.registerCarrierNumberEditText(binding.etPhoneNumber)
+
+            val phoneNumber = binding.countryCodePicker.fullNumberWithPlus
+            val name = binding.etNamePhoneLogin.text.toString()
 
             if (code.isEmpty()){
                 binding.etEnterOtp.error = "Code Required"
@@ -85,7 +100,7 @@ class PhoneLoginActivity : AppCompatActivity() {
 
             val credential = PhoneAuthProvider.getCredential(storedVerificationId!!, code)
 
-            signInWithPhoneAuthCredential(credential)
+            signInWithPhoneAuthCredential(credential, phoneNumber , name)
             binding.progressBar.visibility = View.VISIBLE
         }
         
@@ -99,8 +114,13 @@ class PhoneLoginActivity : AppCompatActivity() {
             // 2 - Auto-retrieval. On some devices Google Play services can automatically
             //     detect the incoming verification SMS and perform verification without
             //     user action.
+            binding.countryCodePicker.registerCarrierNumberEditText(binding.etPhoneNumber)
+
+            val phoneNumber = binding.countryCodePicker.fullNumberWithPlus
+            val name = binding.etNamePhoneLogin.text.toString()
+
             Log.d("Verification", "onVerificationCompleted:$credential")
-            signInWithPhoneAuthCredential(credential)
+            signInWithPhoneAuthCredential(credential, phoneNumber, name)
             binding.progressBar.visibility = View.VISIBLE
         }
 
@@ -127,12 +147,36 @@ class PhoneLoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+    private fun signInWithPhoneAuthCredential(
+        credential: PhoneAuthCredential,
+        phoneNumber: String,
+        name: String
+    ) {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
-                    binding.progressBar.visibility = View.INVISIBLE
+                      //  task.result.user.
+
+                    val user = hashMapOf(
+
+                        "name" to name ,
+                        "email" to String(),
+                        "phone" to phoneNumber
+                    )
+
+                    db.collection("users")
+                        .document(task.result.user!!.uid)
+                        .set(user)
+                        .addOnSuccessListener {
+                            Log.d("data in firestore" , "true")
+                        }
+                        .addOnFailureListener {
+                            Log.d("data in firestore",it.message.toString() )
+                        }
+
+
+                        binding.progressBar.visibility = View.INVISIBLE
                     Log.d("TAG", "signInWithCredential:success")
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
 
@@ -141,7 +185,6 @@ class PhoneLoginActivity : AppCompatActivity() {
                     finish()
 
 
-                    val user = task.result?.user
                 } else {
                     // Sign in failed, display a message and update the UI
                     binding.progressBar.visibility = View.INVISIBLE
