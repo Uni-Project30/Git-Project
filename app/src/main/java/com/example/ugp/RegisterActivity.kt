@@ -9,11 +9,14 @@ import android.widget.Toast
 import com.example.ugp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var mAuth : FirebaseAuth
+    private val db = Firebase.firestore
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,20 +72,26 @@ class RegisterActivity : AppCompatActivity() {
 
                 if (task.isSuccessful){
 
-                    userProfileChangeRequest {
-                        displayName = name
-                    }
-                    mAuth.updateCurrentUser(mAuth.currentUser!!).addOnCompleteListener {
-                        if (it.isSuccessful){
-                            Log.d("name situation","name updated")
-                        }else{
-                            Log.d("RegisterActivity",it.exception?.message.toString())
-                        }
-                    }
+                   val user = hashMapOf(
 
-                    Toast.makeText(this, mAuth.currentUser!!.displayName.toString(), Toast.LENGTH_SHORT).show()
+                       "name" to name ,
+                       "email" to email,
+                       "phone" to String()
+                   )
+
+                    db.collection("users")
+                        .document(task.result.user!!.uid)
+                        .set(user)
+                        .addOnSuccessListener {
+                            Log.d("data in firestore" , "true")
+                        }
+                        .addOnFailureListener {
+                            Log.d("data in firestore",it.message.toString() )
+                        }
+
                     Log.d("name final", mAuth.currentUser!!.displayName.toString())
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()

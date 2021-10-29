@@ -30,6 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:padding="8dp"
+        android:drawableLeft="@drawable/icon_profile"
+        android:drawablePadding="12dp"
         android:hint="Name"/>
 
     <EditText
@@ -38,6 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:padding="8dp"
+        android:drawableLeft="@drawable/icon_email"
+        android:drawablePadding="12dp"
         android:inputType="textEmailAddress"
         android:hint="Email"/>
 
@@ -47,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:padding="8dp"
+        android:drawablePadding="12dp"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:inputType="textPassword"
         android:hint="Password"/>
 
