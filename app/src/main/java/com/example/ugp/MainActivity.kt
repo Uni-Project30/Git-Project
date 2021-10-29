@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
@@ -29,8 +30,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawer: DrawerLayout
     private lateinit var side_nav: NavigationView
     lateinit var toolbar: Toolbar
-
-    private lateinit var binding : ActivityMainBinding
+    val db = Firebase.firestore
+    private lateinit var binding: ActivityMainBinding
 
     //variables for sign Out
     private lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -40,10 +41,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-
-
 
 
         //assigning variables of side nav
@@ -68,9 +65,21 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
-
         // assigning values to information variables
-        name.text = mAuth.currentUser!!.displayName.toString()
+
+//        val n= mAuth.currentUser!!.displayName
+        if(mAuth.currentUser!!.displayName.isNullOrEmpty())
+        {
+            db.collection("users").document(mAuth.currentUser!!.uid)
+                .get()
+                .addOnSuccessListener {
+                    name.text = it.getString("name")
+                }
+        }
+        else
+        {
+            name.text = mAuth.currentUser!!.displayName
+        }
         email.text = mAuth.currentUser!!.email.toString()
         if (mAuth.currentUser!!.photoUrl != null) {
             val url = mAuth.currentUser!!.photoUrl
@@ -94,7 +103,10 @@ class MainActivity : AppCompatActivity() {
                     // this will take to profile activity
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
+// <<<<<<< main
   //                  finish()
+// =======
+// >>>>>>> main
                 }
                 R.id.logout -> {
                     // This will show a dialog box foe logging out
