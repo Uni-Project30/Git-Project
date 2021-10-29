@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".PhoneLoginActivity">
+
+    <EditText
+        android:id="@+id/et_name_phoneLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:hint="Name"
+        android:layout_marginTop="32dp" />
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/countryCodePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_name_phoneLogin"
+        android:layout_marginTop="32dp"
+        android:paddingLeft="8dp"/>
+
+    <EditText
+        android:id="@+id/et_phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/countryCodePicker"
+        android:layout_toRightOf="@id/countryCodePicker"
+        android:hint="Phone number"
+        android:inputType="phone"
+        android:paddingRight="8dp"
+        android:layout_toEndOf="@id/countryCodePicker"
+        android:paddingEnd="8dp" />
+
+    <Button
+        android:id="@+id/bt_sendOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/countryCodePicker"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        android:padding="8dp"
+        android:text="Send OTP"/>
+
+    <EditText
+        android:id="@+id/et_enterOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt_sendOtp"
+        android:layout_marginTop="32dp"
+        android:hint="OTP"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_resendOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_enterOtp"
+        android:padding="4dp"
+        android:text="Resend OTP"/>
+
+    <Button
+        android:id="@+id/bt_verifyOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify OTP"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/tv_resendOtp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/bt_verifyOtp"
+        android:layout_marginBottom="38dp"/>
+
+
+
+</RelativeLayout>
