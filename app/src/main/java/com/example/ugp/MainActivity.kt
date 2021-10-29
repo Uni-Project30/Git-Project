@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,15 +14,17 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.ugp.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.create_new_board.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var side_nav: NavigationView
     lateinit var toolbar: Toolbar
     val db = Firebase.firestore
-    private lateinit var binding: ActivityMainBinding
 
     //variables for sign Out
     private lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -39,8 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
 
         //assigning variables of side nav
@@ -138,6 +139,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        btn_create_board.setOnClickListener{
+            showCreateBoardDialog()
+        }
     }
 
     // for opening side_nav
@@ -164,4 +168,22 @@ class MainActivity : AppCompatActivity() {
         Firebase.auth.signOut()
     }
 
+    private fun showCreateBoardDialog(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
+        val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
+
+        with(builder){
+            setTitle("Create Board")
+            setPositiveButton("Create"){dialog, which ->
+                Toast.makeText(this@MainActivity,txt.text.toString(),Toast.LENGTH_SHORT).show()
+            }
+            setNegativeButton("Cancel"){dialog, which ->
+
+            }
+            setView(dialogLayout)
+            show()
+        }
+    }
 }
