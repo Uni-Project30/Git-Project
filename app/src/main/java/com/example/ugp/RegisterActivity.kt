@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
+import boards.Boards
 import com.example.ugp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -76,7 +77,8 @@ class RegisterActivity : AppCompatActivity() {
 
                        "name" to name ,
                        "email" to email,
-                       "phone" to String()
+                       "phone" to String(),
+                       "boards" to ArrayList<Boards>()
                    )
 
                     db.collection("users")

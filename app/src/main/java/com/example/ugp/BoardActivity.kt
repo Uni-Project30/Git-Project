@@ -61,6 +61,19 @@ class BoardActivity : AppCompatActivity() {
             true
         }
 
+        //added board name to appbar title
+        val title = intent.extras?.getString("boardName")
+        toolbarBoard.title=title
+
+
+
+    }
+
+    //Start Main Activity on going Back
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this,MainActivity::class.java))
+        finish()
     }
 
     // Adding members currently in the board

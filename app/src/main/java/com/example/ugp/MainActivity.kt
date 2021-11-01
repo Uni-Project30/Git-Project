@@ -12,20 +12,21 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.create_new_board.*
-
 class MainActivity : AppCompatActivity() {
 
     // variables for side navigation
@@ -39,9 +40,42 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val mAuth = FirebaseAuth.getInstance()
 
+    //variables for adapter
+    lateinit var myAdapter: BoardsAdapter
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var listOfMap : ArrayList<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Get Boards List
+        linearLayoutManager = LinearLayoutManager(applicationContext)
+        rv_boards.layoutManager = linearLayoutManager
+
+        val currentUser = mAuth.currentUser
+
+        val docRef = db.collection("users").document(currentUser!!.uid)
+
+        listOfMap = arrayListOf()
+        docRef.get().addOnSuccessListener {
+
+            if (it.exists() && it != null){
+
+                listOfMap = it.get("boards") as ArrayList<String>
+
+            }else{
+                Toast.makeText(this,"failure to add data",Toast.LENGTH_SHORT).show()
+            }
+            if (listOfMap.isEmpty()){
+                rv_boards.isVisible = false
+            }else{
+                myAdapter = BoardsAdapter(this, listOfMap)
+                rv_boards.adapter = myAdapter
+
+            }
+
+        }
 
 
         //assigning variables of side nav
@@ -139,6 +173,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        //Board Creating Button
         btn_create_board.setOnClickListener{
             showCreateBoardDialog()
         }
@@ -174,10 +209,19 @@ class MainActivity : AppCompatActivity() {
         val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
         val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
 
+
         with(builder){
             setTitle("Create Board")
             setPositiveButton("Create"){dialog, which ->
-                Toast.makeText(this@MainActivity,txt.text.toString(),Toast.LENGTH_SHORT).show()
+                val docRef = db.collection("users").document(mAuth.currentUser?.uid!!)
+
+                docRef.get().addOnSuccessListener {
+                    docRef.update("boards", FieldValue.arrayUnion(txt.text.toString()))
+                    val intent = Intent(this@MainActivity, BoardActivity::class.java)
+                    intent.putExtra("boardName",txt.text.toString())
+                    startActivity(intent)
+                    finish()
+                }
             }
             setNegativeButton("Cancel"){dialog, which ->
 
