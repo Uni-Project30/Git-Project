@@ -138,10 +138,7 @@ class MainActivity : AppCompatActivity() {
                     // this will take to profile activity
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
-// <<<<<<< main
-  //                  finish()
-// =======
-// >>>>>>> main
+
                 }
                 R.id.logout -> {
                     // This will show a dialog box foe logging out

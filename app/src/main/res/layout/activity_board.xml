@@ -7,7 +7,8 @@
     android:id="@+id/board_drawer_layout"
     android:fitsSystemWindows="true"
     tools:context=".BoardActivity"
-    tools:openDrawer="end">
+    tools:openDrawer="end"
+    android:layout_gravity="end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
