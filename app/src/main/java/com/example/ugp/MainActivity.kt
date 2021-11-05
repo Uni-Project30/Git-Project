@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity() {
         //setting action bar for side navigation
         setSupportActionBar(toolbar)
         toggle = ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close)
-        //toggle.isDrawerIndicatorEnabled = true
         drawer.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -128,10 +127,6 @@ class MainActivity : AppCompatActivity() {
                     // this will take to profile activity
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
-// <<<<<<< main
-  //                  finish()
-// =======
-// >>>>>>> main
                 }
                 R.id.logout -> {
                     // This will show a dialog box foe logging out
