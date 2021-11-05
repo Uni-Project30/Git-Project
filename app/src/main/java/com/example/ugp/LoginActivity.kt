@@ -29,8 +29,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         //initialising firebase auth
         mAuth = FirebaseAuth.getInstance()
-        val currentUser = mAuth.currentUser
-        
 
         // Click of Login Button
         binding.btLoginLogin.setOnClickListener{

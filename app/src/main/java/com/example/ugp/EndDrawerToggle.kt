@@ -1,6 +1,7 @@
 package com.example.ugp
 
 import android.content.res.Configuration
+import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.AppCompatImageButton
@@ -14,6 +15,7 @@ import kotlin.math.min
 class EndDrawerToggle(
     private val drawerLayout : DrawerLayout,
     toolbar : Toolbar,
+    private val drawable : Drawable,
     private val openDrawerContentDescRes : Int,
     private val closeDrawerContentDescRes : Int
 ) : DrawerLayout.DrawerListener {
@@ -21,7 +23,7 @@ class EndDrawerToggle(
     private var toggleButton : AppCompatImageButton = AppCompatImageButton(toolbar.context, null,
         R.attr.toolbarNavigationButtonStyle)
 
-    private lateinit var arrowDrawable: DrawerArrowDrawable
+    private lateinit var arrowDrawable : DrawerArrowDrawable
 
     init {
 
@@ -30,7 +32,7 @@ class EndDrawerToggle(
             toggle()
         }
 
-        loadDrawerArrowDrawable()
+        loadDrawerArrowDrawable(drawable)
     }
 
     fun syncState() {
@@ -44,7 +46,7 @@ class EndDrawerToggle(
     }
 
     fun onConfigurationChanged(newConfig: Configuration) {
-        loadDrawerArrowDrawable()
+        loadDrawerArrowDrawable(drawable)
         syncState()
     }
 
@@ -62,15 +64,15 @@ class EndDrawerToggle(
 
     override fun onDrawerStateChanged(newState: Int) {}
 
-    fun loadDrawerArrowDrawable() {
+    private fun loadDrawerArrowDrawable(drawable : Drawable) {
 
         arrowDrawable = DrawerArrowDrawable(toggleButton.context)
         arrowDrawable.direction = DrawerArrowDrawable.ARROW_DIRECTION_END
-        toggleButton.setImageDrawable(arrowDrawable)
+        toggleButton.setImageDrawable(drawable)
 
     }
 
-    fun toggle() {
+    private fun toggle() {
 
         val drawerLockMode = drawerLayout.getDrawerLockMode(GravityCompat.END)
         if((drawerLayout.isDrawerVisible(GravityCompat.END)) &&
@@ -83,7 +85,7 @@ class EndDrawerToggle(
 
     }
 
-    fun setPosition(position : Float) {
+    private fun setPosition(position : Float) {
 
         if(position == 1f) {
             arrowDrawable.setVerticalMirror(true)
@@ -97,7 +99,7 @@ class EndDrawerToggle(
 
     }
 
-    fun setContentDescription(resId : Int) {
+    private fun setContentDescription(resId : Int) {
         toggleButton.contentDescription = toggleButton.context.getText(resId)
     }
 }

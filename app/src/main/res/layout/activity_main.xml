@@ -56,7 +56,4 @@
 
     </com.google.android.material.navigation.NavigationView>
 
-
-<!--    Add the design elements of the main activity in scroll view-->
-
 </androidx.drawerlayout.widget.DrawerLayout>
