@@ -3,6 +3,7 @@ package com.example.ugp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageView
@@ -12,7 +13,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -43,40 +43,30 @@ class MainActivity : AppCompatActivity() {
     //variables for adapter
     lateinit var myAdapter: BoardsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var listOfMap : ArrayList<String>
+    private lateinit var listOfBoards : ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Get Boards List
+        //Get boards List in Recycler View
         linearLayoutManager = LinearLayoutManager(applicationContext)
         rv_boards.layoutManager = linearLayoutManager
 
-        val currentUser = mAuth.currentUser
+        listOfBoards = arrayListOf()
 
-        val docRef = db.collection("users").document(currentUser!!.uid)
-
-        listOfMap = arrayListOf()
-        docRef.get().addOnSuccessListener {
-
-            if (it.exists() && it != null){
-
-                listOfMap = it.get("boards") as ArrayList<String>
-
-            }else{
-                Toast.makeText(this,"failure to add data",Toast.LENGTH_SHORT).show()
-            }
-            if (listOfMap.isEmpty()){
-                rv_boards.isVisible = false
-            }else{
-                myAdapter = BoardsAdapter(this, listOfMap)
+        db.collection("boards")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    listOfBoards.add(document.getString("board name")!!)
+                }
+                myAdapter = BoardsAdapter(this, listOfBoards)
                 rv_boards.adapter = myAdapter
-
             }
-
-        }
-
+            .addOnFailureListener { exception ->
+                Toast.makeText(this,"Failed to retrieve boards data",Toast.LENGTH_SHORT).show()
+            }
 
         //assigning variables of side nav
         side_nav = findViewById(R.id.side_nav1)
@@ -203,20 +193,31 @@ class MainActivity : AppCompatActivity() {
         val inflater = layoutInflater
         val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
         val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
+        val currentUser = mAuth.currentUser
 
 
         with(builder){
             setTitle("Create Board")
             setPositiveButton("Create"){dialog, which ->
-                val docRef = db.collection("users").document(mAuth.currentUser?.uid!!)
 
-                docRef.get().addOnSuccessListener {
-                    docRef.update("boards", FieldValue.arrayUnion(txt.text.toString()))
-                    val intent = Intent(this@MainActivity, BoardActivity::class.java)
-                    intent.putExtra("boardName",txt.text.toString())
-                    startActivity(intent)
-                    finish()
-                }
+                val board = hashMapOf(
+                    "board name" to txt.text.toString(),
+                    "created by" to currentUser?.uid
+                )
+
+                db.collection("boards")
+                    .document(txt.text.toString())
+                    .set(board, SetOptions.merge())
+                    .addOnSuccessListener {
+                        val intent = Intent(this@MainActivity, BoardActivity::class.java)
+                        intent.putExtra("boardName",txt.text.toString())
+                        startActivity(intent)
+                        finish()
+                        Log.d("data in firestore" , "true")
+                    }
+                    .addOnFailureListener {
+                        Log.d("data in firestore",it.message.toString() )
+                    }
             }
             setNegativeButton("Cancel"){dialog, which ->
 
