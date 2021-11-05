@@ -1,12 +1,10 @@
 package com.example.ugp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -14,7 +12,7 @@ import com.google.android.material.navigation.NavigationView
 class BoardActivity : AppCompatActivity() {
 
     // Variables for right drawer layout
-    private lateinit var toggleBoard : ActionBarDrawerToggle
+    private lateinit var toggleBoard : EndDrawerToggle
     private lateinit var drawerBoard : DrawerLayout
     private lateinit var rightNavBoard : NavigationView
     private lateinit var toolbarBoard : Toolbar
@@ -33,15 +31,14 @@ class BoardActivity : AppCompatActivity() {
 
         // Setting action bar for right nav
         setSupportActionBar(toolbarBoard)
-        toggleBoard = ActionBarDrawerToggle(this, drawerBoard, R.string.open, R.string.close)
+        toggleBoard = EndDrawerToggle(drawerBoard, toolbarBoard, R.string.open, R.string.close)
         drawerBoard.addDrawerListener(toggleBoard)
-        toggleBoard.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
         // Setting onClick for right nav
         rightNavBoard.setNavigationItemSelectedListener { menuItem ->
-            drawerBoard.closeDrawer(GravityCompat.START)
+            drawerBoard.closeDrawer(GravityCompat.END)
             when(menuItem.itemId) {
                 // For Later
                 //R.id.invite_members ->
@@ -54,7 +51,6 @@ class BoardActivity : AppCompatActivity() {
                 R.id.about_app -> {
                     val intent = Intent(this, AboutActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
 
             }
@@ -72,26 +68,20 @@ class BoardActivity : AppCompatActivity() {
     //Start Main Activity on going Back
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this,MainActivity::class.java))
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
         finish()
     }
 
-    // Adding members currently in the board
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menu?.clear()
-        val members = menu?.addSubMenu(0, 0, 0, "Members")
-        for(member in memberList) {
-            members?.add(member)
-        }
-
-        return super.onPrepareOptionsMenu(menu)
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        toggleBoard.syncState()
     }
 
-    // For opening right nav
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggleBoard.onOptionsItemSelected(item)) {
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        toggleBoard.onConfigurationChanged(newConfig)
     }
+
 }
