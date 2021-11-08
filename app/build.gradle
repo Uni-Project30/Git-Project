@@ -11,11 +11,13 @@ android {
 
     defaultConfig {
         applicationId "com.example.ugp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+
+        vectorDrawables.useSupportLibrary true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
