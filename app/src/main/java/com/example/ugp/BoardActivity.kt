@@ -6,9 +6,14 @@ import android.content.Intent
 import android.content.ReceiverCallNotAllowedException
 import android.content.res.Configuration
 import android.os.Bundle
+// <<<<<<< master
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+// =======
+import android.util.Log
+import android.widget.EditText
+// >>>>>>> main
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -23,10 +28,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
+// <<<<<<< master
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import org.w3c.dom.Document
+// =======
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_board.*
+// >>>>>>> main
 
 class BoardActivity : AppCompatActivity() {
 
@@ -187,6 +199,11 @@ class BoardActivity : AppCompatActivity() {
         //added board name to appbar title
         val title = intent.extras?.getString("boardName")
         toolbarBoard.title = title
+
+        //
+        btn_create_list.setOnClickListener{
+            showCreateBoardDialog()
+        }
     }
 
 
@@ -209,4 +226,38 @@ class BoardActivity : AppCompatActivity() {
         dualDrawerToggle.onConfigurationChanged(newConfig)
     }
 
+    private fun showCreateBoardDialog(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
+        val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
+        val boardName = intent.extras?.getString("boardName")
+
+        with(builder){
+            setTitle("Add List")
+            setPositiveButton("Add List"){dialog, which ->
+
+                val list = hashMapOf(
+                    "list name" to txt.text.toString(),
+                )
+
+                db.collection("boards")
+                    .document(boardName.toString())
+                    .collection("lists")
+                    .document(txt.text.toString())
+                    .set(list, SetOptions.merge())
+                    .addOnSuccessListener {
+                        Log.d("data in firestore" , "true")
+                    }
+                    .addOnFailureListener {
+                        Log.d("data in firestore",it.message.toString() )
+                    }
+            }
+            setNegativeButton("Cancel"){dialog, which ->
+
+            }
+            setView(dialogLayout)
+            show()
+        }
+    }
 }
