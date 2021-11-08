@@ -195,7 +195,13 @@ class MainActivity : AppCompatActivity() {
         val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
         val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
         val currentUser = mAuth.currentUser
+        var name: String? = ""
 
+        db.collection("users").document(mAuth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                name = it.getString("name")
+            }
 
         with(builder){
             setTitle("Create Board")
@@ -203,7 +209,8 @@ class MainActivity : AppCompatActivity() {
 
                 val board = hashMapOf(
                     "board name" to txt.text.toString(),
-                    "created by" to currentUser?.uid
+                    "created by(uid)" to currentUser?.uid,
+                    "created by(name)" to name
                 )
 
                 db.collection("boards")

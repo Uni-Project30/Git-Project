@@ -13,7 +13,8 @@ class BoardsAdapter(
     private val listOfBoards : ArrayList<String>):
 RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>(){
 
-    inner class BoardsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class BoardsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
