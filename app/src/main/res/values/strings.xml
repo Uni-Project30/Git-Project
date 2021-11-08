@@ -20,5 +20,6 @@
 
     <string name="web_client_id">836229581118-d1dqqgdi843i9jiguru0irsnubicssot.apps.googleusercontent.com</string>
     <string name="creates_new_boards">Creates New Boards</string>
-    <string name="board_name">Board Name</string>
+    <string name="name">Name</string>
+    <string name="creates_new_lists">Creates New Lists</string>
 </resources>

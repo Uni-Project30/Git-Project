@@ -7,7 +7,6 @@
     android:id="@+id/board_drawer_layout"
     android:fitsSystemWindows="true"
     tools:context=".BoardActivity"
-    tools:openDrawer="end"
     android:layout_gravity="end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +32,21 @@
                 android:background="#007AC0" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_create_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/creates_new_lists"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
