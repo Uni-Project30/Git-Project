@@ -3,7 +3,9 @@ package com.example.ugp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,16 +15,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.ugp.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.create_new_board.*
 class MainActivity : AppCompatActivity() {
 
     // variables for side navigation
@@ -31,17 +35,38 @@ class MainActivity : AppCompatActivity() {
     private lateinit var side_nav: NavigationView
     lateinit var toolbar: Toolbar
     val db = Firebase.firestore
-    private lateinit var binding: ActivityMainBinding
 
     //variables for sign Out
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val mAuth = FirebaseAuth.getInstance()
 
+    //variables for adapter
+    lateinit var myAdapter: BoardsAdapter
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var listOfBoards : ArrayList<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
+        //Get boards List in Recycler View
+        linearLayoutManager = LinearLayoutManager(applicationContext)
+        rv_boards.layoutManager = linearLayoutManager
+
+        listOfBoards = arrayListOf()
+
+        db.collection("boards")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    listOfBoards.add(document.getString("board name")!!)
+                }
+                myAdapter = BoardsAdapter(this, listOfBoards)
+                rv_boards.adapter = myAdapter
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this,"Failed to retrieve boards data",Toast.LENGTH_SHORT).show()
+            }
 
         //assigning variables of side nav
         side_nav = findViewById(R.id.side_nav1)
@@ -59,7 +84,6 @@ class MainActivity : AppCompatActivity() {
         //setting action bar for side navigation
         setSupportActionBar(toolbar)
         toggle = ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close)
-        //toggle.isDrawerIndicatorEnabled = true
         drawer.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -103,10 +127,7 @@ class MainActivity : AppCompatActivity() {
                     // this will take to profile activity
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
-// <<<<<<< main
-  //                  finish()
-// =======
-// >>>>>>> main
+
                 }
                 R.id.logout -> {
                     // This will show a dialog box foe logging out
@@ -138,6 +159,10 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        //Board Creating Button
+        btn_create_board.setOnClickListener{
+            showCreateBoardDialog()
+        }
     }
 
     // for opening side_nav
@@ -164,4 +189,49 @@ class MainActivity : AppCompatActivity() {
         Firebase.auth.signOut()
     }
 
+    private fun showCreateBoardDialog(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
+        val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
+        val currentUser = mAuth.currentUser
+        var name: String? = ""
+
+        db.collection("users").document(mAuth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                name = it.getString("name")
+            }
+
+        with(builder){
+            setTitle("Create Board")
+            setPositiveButton("Create"){dialog, which ->
+
+                val board = hashMapOf(
+                    "board name" to txt.text.toString(),
+                    "created by(uid)" to currentUser?.uid,
+                    "created by(name)" to name
+                )
+
+                db.collection("boards")
+                    .document(txt.text.toString())
+                    .set(board, SetOptions.merge())
+                    .addOnSuccessListener {
+                        val intent = Intent(this@MainActivity, BoardActivity::class.java)
+                        intent.putExtra("boardName",txt.text.toString())
+                        startActivity(intent)
+                        finish()
+                        Log.d("data in firestore" , "true")
+                    }
+                    .addOnFailureListener {
+                        Log.d("data in firestore",it.message.toString() )
+                    }
+            }
+            setNegativeButton("Cancel"){dialog, which ->
+
+            }
+            setView(dialogLayout)
+            show()
+        }
+    }
 }

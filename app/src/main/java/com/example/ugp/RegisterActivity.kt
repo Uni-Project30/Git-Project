@@ -8,7 +8,6 @@ import android.util.Patterns
 import android.widget.Toast
 import com.example.ugp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 

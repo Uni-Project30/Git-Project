@@ -7,7 +7,7 @@
     android:id="@+id/board_drawer_layout"
     android:fitsSystemWindows="true"
     tools:context=".BoardActivity"
-    tools:openDrawer="end">
+    android:layout_gravity="end">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,6 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,10 +28,25 @@
                 android:id="@+id/toolbar_board"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:title="@string/welcome"
                 android:background="#007AC0" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_create_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/creates_new_lists"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -43,6 +57,16 @@
         app:menu="@menu/board_menu"
         android:layout_gravity="end">
 
+    </com.google.android.material.navigation.NavigationView>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/board_left_side_nav"
+        app:headerLayout="@layout/side_nav_header"
+        app:menu="@menu/side_nav"
+        android:layout_gravity="start">
 
     </com.google.android.material.navigation.NavigationView>
 
