@@ -1,5 +1,6 @@
 package com.example.ugp
 
+import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.Menu
 import android.view.SubMenu
 import android.view.View
 import android.widget.ImageButton
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -17,16 +19,22 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentChange
+import de.hdodenhof.circleimageview.CircleImageView
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_board.*
+
 
 class BoardActivity : AppCompatActivity() {
 
-    private lateinit var dualDrawerToggle : DualDrawerToggle
+    private lateinit var dualDrawerToggle: DualDrawerToggle
     private lateinit var drawerBoard: DrawerLayout
     private lateinit var rightNavBoard: NavigationView
     private lateinit var toolbarBoard: Toolbar
@@ -37,10 +45,38 @@ class BoardActivity : AppCompatActivity() {
 
     private lateinit var menu : Menu
     private lateinit var subMenu : SubMenu
+    private val b_list: ArrayList<data_board_lists> = ArrayList()
+    private lateinit var rv:RecyclerView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
+
+        rv = findViewById(R.id.boards_list_rv)
+        rv.apply {
+            layoutManager = LinearLayoutManager(this@BoardActivity,LinearLayoutManager.HORIZONTAL,false)
+        }
+
+        // getting names of all the boards and saving in the arraylist
+        db.collection("boards").document(intent.extras?.getString("boardName").toString()).collection("lists")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(ContentValues.TAG, error.message.toString())
+                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        b_list.add(dc.document.toObject(data_board_lists::class.java))
+                    }
+                    rv.adapter = Adapter_board_lists(b_list)
+                    rv.adapter!!.notifyDataSetChanged()
+                }
+            }
+
+
+
 
         // Assigning variables of right nav
         drawerBoard = findViewById(R.id.board_drawer_layout)
@@ -52,27 +88,16 @@ class BoardActivity : AppCompatActivity() {
 
         // Setting action bar for right nav
         setSupportActionBar(toolbarBoard)
-        val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_more_vert_24,
-            this.theme)
+        val drawable = ResourcesCompat.getDrawable(
+            resources, R.drawable.ic_baseline_more_vert_24,
+            this.theme
+        )
         dualDrawerToggle = drawable?.let {
             DualDrawerToggle(this, drawerBoard, toolbarBoard, it, R.string.open,
                 R.string.close, R.string.open, R.string.close)
         }!!
         drawerBoard.addDrawerListener(dualDrawerToggle)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-        // Adding the member list
-//        val menu : Menu = rightNavBoard.menu
-//        val subMenu = menu.findItem(R.id.members).subMenu
-//        Log.e("Member", subMenu.toString())
-//        db.collection("users").get()
-//            .addOnSuccessListener { querySnapshot ->
-//                querySnapshot.documentChanges.forEach { documentChange ->
-//                    subMenu.add(documentChange.document.get("name").toString())
-//                }
-//            }.addOnFailureListener { exception ->
-//                Log.e("Member List", exception.message.toString())
-//            }
 
 
         val header = leftNavBoard.getHeaderView(0)
@@ -212,7 +237,13 @@ class BoardActivity : AppCompatActivity() {
         //added board name to appbar title
         val title = intent.extras?.getString("boardName")
         toolbarBoard.title = title
+
+        //
+        btn_create_list.setOnClickListener{
+            showCreateBoardDialog()
+        }
     }
+
 
     //Start Main Activity on going Back
     override fun onBackPressed() {
@@ -233,4 +264,38 @@ class BoardActivity : AppCompatActivity() {
         dualDrawerToggle.onConfigurationChanged(newConfig)
     }
 
+    private fun showCreateBoardDialog(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
+        val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
+        val boardName = intent.extras?.getString("boardName")
+
+        with(builder){
+            setTitle("Add List")
+            setPositiveButton("Add List"){ _, _ ->
+
+                val list = hashMapOf(
+                    "list name" to txt.text.toString(),
+                )
+
+                db.collection("boards")
+                    .document(boardName.toString())
+                    .collection("lists")
+                    .document(txt.text.toString())
+                    .set(list, SetOptions.merge())
+                    .addOnSuccessListener {
+                        Log.d("data in Firestore" , "true")
+                    }
+                    .addOnFailureListener {
+                        Log.d("data in Firestore",it.message.toString() )
+                    }
+            }
+            setNegativeButton("Cancel"){ _, _ ->
+
+            }
+            setView(dialogLayout)
+            show()
+        }
+    }
 }
