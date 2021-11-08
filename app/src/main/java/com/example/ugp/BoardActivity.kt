@@ -1,19 +1,11 @@
 package com.example.ugp
 
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.ReceiverCallNotAllowedException
 import android.content.res.Configuration
 import android.os.Bundle
-// <<<<<<< master
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
-// =======
 import android.util.Log
 import android.widget.EditText
-// >>>>>>> main
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -28,17 +20,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
-// <<<<<<< master
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import org.w3c.dom.Document
-// =======
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_board.*
-// >>>>>>> main
+
 
 class BoardActivity : AppCompatActivity() {
 
