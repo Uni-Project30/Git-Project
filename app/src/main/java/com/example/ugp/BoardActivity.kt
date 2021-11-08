@@ -1,8 +1,14 @@
 package com.example.ugp
 
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.ReceiverCallNotAllowedException
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.AttributeSet
+import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -12,15 +18,19 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Document
 
 class BoardActivity : AppCompatActivity() {
 
-    private lateinit var dualDrawerToggle : DualDrawerToggle
+    private lateinit var dualDrawerToggle: DualDrawerToggle
     private lateinit var drawerBoard: DrawerLayout
     private lateinit var rightNavBoard: NavigationView
     private lateinit var toolbarBoard: Toolbar
@@ -28,12 +38,40 @@ class BoardActivity : AppCompatActivity() {
 
     private val mAuth = Firebase.auth
     private val db = Firebase.firestore
-
+    private val b_list: ArrayList<data_board_lists> = ArrayList()
+    private lateinit var rv:RecyclerView
     private var memberList: ArrayList<String> = arrayListOf()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
+
+        rv = findViewById(R.id.boards_list_rv)
+        rv.apply {
+            layoutManager = LinearLayoutManager(this@BoardActivity,LinearLayoutManager.HORIZONTAL,false)
+        }
+
+        // getting names of all the boards and saving in the arraylist
+        db.collection("boards").document(intent.extras?.getString("boardName").toString()).collection("lists")
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w(ContentValues.TAG, error.message.toString())
+                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        b_list.add(dc.document.toObject(data_board_lists::class.java))
+                    }
+                    rv.adapter = Adapter_board_lists(b_list)
+                    rv.adapter!!.notifyDataSetChanged()
+                }
+            }
+
+
+
 
         // Assigning variables of right nav
         drawerBoard = findViewById(R.id.board_drawer_layout)
@@ -45,11 +83,15 @@ class BoardActivity : AppCompatActivity() {
 
         // Setting action bar for right nav
         setSupportActionBar(toolbarBoard)
-        val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_more_vert_24,
-            this.theme)
+        val drawable = ResourcesCompat.getDrawable(
+            resources, R.drawable.ic_baseline_more_vert_24,
+            this.theme
+        )
         dualDrawerToggle = drawable?.let {
-            DualDrawerToggle(this, drawerBoard, toolbarBoard, it,
-                R.string.open, R.string.close, R.string.open, R.string.close)
+            DualDrawerToggle(
+                this, drawerBoard, toolbarBoard, it,
+                R.string.open, R.string.close, R.string.open, R.string.close
+            )
         }!!
         drawerBoard.addDrawerListener(dualDrawerToggle)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -124,7 +166,7 @@ class BoardActivity : AppCompatActivity() {
         // Setting onClick for right nav
         rightNavBoard.setNavigationItemSelectedListener { menuItem ->
             drawerBoard.closeDrawer(GravityCompat.END)
-            when(menuItem.itemId) {
+            when (menuItem.itemId) {
                 // For Later
                 //R.id.invite_members ->
 
@@ -146,6 +188,7 @@ class BoardActivity : AppCompatActivity() {
         val title = intent.extras?.getString("boardName")
         toolbarBoard.title = title
     }
+
 
     //Start Main Activity on going Back
     override fun onBackPressed() {
