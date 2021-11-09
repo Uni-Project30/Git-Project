@@ -3,8 +3,10 @@ package com.example.ugp
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -42,10 +44,11 @@ class BoardActivity : AppCompatActivity() {
     private var memberList: ArrayList<String> = arrayListOf()
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
+
+
 
         rv = findViewById(R.id.boards_list_rv)
         rv.apply {
@@ -68,6 +71,8 @@ class BoardActivity : AppCompatActivity() {
                     rv.adapter!!.notifyDataSetChanged()
                 }
             }
+
+
 
 
 
@@ -225,7 +230,7 @@ class BoardActivity : AppCompatActivity() {
             setPositiveButton("Add List"){dialog, which ->
 
                 val list = hashMapOf(
-                    "list name" to txt.text.toString(),
+                    "name" to txt.text.toString(),
                 )
 
                 db.collection("boards")
