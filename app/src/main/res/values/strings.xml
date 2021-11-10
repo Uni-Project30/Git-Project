@@ -24,7 +24,7 @@
     <string name="name">Name</string>
     <string name="creates_new_lists">Creates New Lists</string>
 
-    <string name="description_hint">Type the description here to let the others know what this board is for.</string>
+    <string name="description_hint">Description for your board.</string>
     <string name="board_creator">Created By :</string>
     <string name="board_description">Description :</string>
     <string name="save">Save</string>

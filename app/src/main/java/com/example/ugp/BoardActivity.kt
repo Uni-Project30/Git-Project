@@ -3,16 +3,11 @@ package com.example.ugp
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.*
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
