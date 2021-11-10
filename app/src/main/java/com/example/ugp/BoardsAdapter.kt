@@ -1,6 +1,5 @@
 package com.example.ugp
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,10 +10,12 @@ import kotlinx.android.synthetic.main.board_item.view.*
 
 class BoardsAdapter(
     private val context: Context,
-    private val listOfMap : ArrayList<String>):
+    private val listOfBoards : ArrayList<String>,
+    private val listOfFavourites : ArrayList<String>):
 RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>(){
 
-    inner class BoardsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class BoardsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -31,7 +32,10 @@ RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>(){
         }
 
         fun bindBoard(position: Int){
-            itemView.tv_board_name.text = listOfMap[position]
+            itemView.tv_board_name.text = listOfBoards[position]
+            if(listOfFavourites[position] == "true") {
+                itemView.favourite_board.visibility = View.VISIBLE
+            }
         }
 
     }
@@ -45,6 +49,6 @@ RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>(){
         holderFavourites.bindBoard(position)
     }
     override fun getItemCount(): Int {
-        return listOfMap.size
+        return listOfBoards.size
     }
 }

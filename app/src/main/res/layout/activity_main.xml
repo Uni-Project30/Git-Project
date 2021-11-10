@@ -45,7 +45,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/creates_new_boards"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_add"/>
 
 
     </RelativeLayout>
@@ -59,8 +59,5 @@
         android:layout_gravity="start">
 
     </com.google.android.material.navigation.NavigationView>
-
-
-<!--    Add the design elements of the main activity in scroll view-->
 
 </androidx.drawerlayout.widget.DrawerLayout>

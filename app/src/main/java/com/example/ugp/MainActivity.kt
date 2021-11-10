@@ -3,6 +3,7 @@ package com.example.ugp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageView
@@ -12,7 +13,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,50 +33,43 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawer: DrawerLayout
     private lateinit var side_nav: NavigationView
-    lateinit var toolbar: Toolbar
-    val db = Firebase.firestore
+    private lateinit var toolbar: Toolbar
+    private val db = Firebase.firestore
 
     //variables for sign Out
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val mAuth = FirebaseAuth.getInstance()
 
     //variables for adapter
-    lateinit var myAdapter: BoardsAdapter
+    private lateinit var myAdapter: BoardsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var listOfMap : ArrayList<String>
+    private lateinit var listOfBoards : ArrayList<String>
+    private lateinit var listOfFavourites : ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Get Boards List
+        //Get boards List in Recycler View
         linearLayoutManager = LinearLayoutManager(applicationContext)
         rv_boards.layoutManager = linearLayoutManager
 
-        val currentUser = mAuth.currentUser
+        listOfBoards = arrayListOf()
+        listOfFavourites = arrayListOf()
 
-        val docRef = db.collection("users").document(currentUser!!.uid)
-
-        listOfMap = arrayListOf()
-        docRef.get().addOnSuccessListener {
-
-            if (it.exists() && it != null){
-
-                listOfMap = it.get("boards") as ArrayList<String>
-
-            }else{
-                Toast.makeText(this,"failure to add data",Toast.LENGTH_SHORT).show()
-            }
-            if (listOfMap.isEmpty()){
-                rv_boards.isVisible = false
-            }else{
-                myAdapter = BoardsAdapter(this, listOfMap)
+        db.collection("boards")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    listOfBoards.add(document.getString("board name")!!)
+                    listOfFavourites.add(document.get("favourite").toString())
+                }
+                myAdapter = BoardsAdapter(this, listOfBoards, listOfFavourites)
                 rv_boards.adapter = myAdapter
-
             }
-
-        }
-
+            .addOnFailureListener { exception ->
+                Toast.makeText(this,exception.message.toString(),Toast.LENGTH_SHORT).show()
+            }
 
 
         //assigning variables of side nav
@@ -86,16 +79,15 @@ class MainActivity : AppCompatActivity() {
 
 
         val header = side_nav.getHeaderView(0)
-        //variables for assigning image,name and emailid
-        var image = header.findViewById<ImageView>(R.id.nav_image)
-        var name = header.findViewById<TextView>(R.id.nav_name)
-        var email = header.findViewById<TextView>(R.id.nav_email)
+        //variables for assigning image,name and emailId
+        val image = header.findViewById<ImageView>(R.id.nav_image)
+        val name = header.findViewById<TextView>(R.id.nav_name)
+        val email = header.findViewById<TextView>(R.id.nav_email)
 
 
         //setting action bar for side navigation
         setSupportActionBar(toolbar)
         toggle = ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close)
-        //toggle.isDrawerIndicatorEnabled = true
         drawer.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -146,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                     val builder = this.let { it1 -> AlertDialog.Builder(it1) }
                     builder.setTitle("Exit/Logout")
                     builder.setMessage("Do you really want to exit \n You will be logged out")
-                    builder.setPositiveButton("Yes") { dialog, which ->
+                    builder.setPositiveButton("Yes") { _, _ ->
                         signOut()
                         val intent = Intent(
                             this,
@@ -155,11 +147,11 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                         this.finish()
                     }
-                    builder.setNegativeButton("No") { dialog, which ->
+                    builder.setNegativeButton("No") { _, _ ->
                         Toast.makeText(this, "Thank you for staying", Toast.LENGTH_SHORT).show()
 
                     }
-                    builder.setNeutralButton("Cancel") { dialog, which ->
+                    builder.setNeutralButton("Cancel") { _, _ ->
                         Toast.makeText(this, "Thank you for staying", Toast.LENGTH_SHORT).show()
                     }
 
@@ -204,24 +196,47 @@ class MainActivity : AppCompatActivity() {
     private fun showCreateBoardDialog(){
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
-        val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
+        val dialogLayout = inflater.inflate(R.layout.create_new_board, null)
         val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
+        val currentUser = mAuth.currentUser
+        var name : String? = ""
+        val favourite = "false"
+        val about = ""
 
+        db.collection("users").document(mAuth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                name = it.getString("name")
+            }
 
         with(builder){
             setTitle("Create Board")
-            setPositiveButton("Create"){dialog, which ->
-                val docRef = db.collection("users").document(mAuth.currentUser?.uid!!)
+            setPositiveButton("Create"){ _, _ ->
 
-                docRef.get().addOnSuccessListener {
-                    docRef.update("boards", FieldValue.arrayUnion(txt.text.toString()))
-                    val intent = Intent(this@MainActivity, BoardActivity::class.java)
-                    intent.putExtra("boardName",txt.text.toString())
-                    startActivity(intent)
-                    finish()
-                }
+                val board = hashMapOf(
+                    "board name" to txt.text.toString(),
+                    "created by(uid)" to currentUser?.uid,
+                    "created by(name)" to name,
+                    "favourite" to favourite,
+                    "about" to about
+                )
+
+                db.collection("boards")
+                    .document(txt.text.toString())
+                    .set(board, SetOptions.merge())
+                    .addOnSuccessListener {
+                        val intent = Intent(this@MainActivity, BoardActivity::class.java)
+                        intent.putExtra("boardName", txt.text.toString())
+                        intent.putExtra("favourite", favourite.toString())
+                        startActivity(intent)
+                        finish()
+                        Log.d("data in Firestore" , "true")
+                    }
+                    .addOnFailureListener {
+                        Log.d("data in Firestore",it.message.toString() )
+                    }
             }
-            setNegativeButton("Cancel"){dialog, which ->
+            setNegativeButton("Cancel"){ _, _ ->
 
             }
             setView(dialogLayout)
