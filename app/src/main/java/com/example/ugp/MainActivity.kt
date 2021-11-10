@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
         //assigning variables of side nav
         side_nav = findViewById(R.id.side_nav1)
         drawer = findViewById(R.id.drawer_layout)
@@ -138,10 +139,7 @@ class MainActivity : AppCompatActivity() {
                     // this will take to profile activity
                     val i = Intent(this, ProfileActivity::class.java)
                     startActivity(i)
-// <<<<<<< main
-  //                  finish()
-// =======
-// >>>>>>> main
+
                 }
                 R.id.logout -> {
                     // This will show a dialog box foe logging out
