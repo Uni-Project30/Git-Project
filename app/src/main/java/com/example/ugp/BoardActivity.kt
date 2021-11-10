@@ -6,13 +6,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.SubMenu
 import android.view.View
-import android.widget.ImageButton
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -25,10 +20,10 @@ import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentChange
-import de.hdodenhof.circleimageview.CircleImageView
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_board.*
 
 
@@ -44,10 +39,10 @@ class BoardActivity : AppCompatActivity() {
     private val db = Firebase.firestore
 
     private lateinit var menu : Menu
-    private lateinit var subMenu : SubMenu
     private val b_list: ArrayList<data_board_lists> = ArrayList()
     private lateinit var rv:RecyclerView
 
+    private var favouriteBoard = intent?.extras?.getString("favourite")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,8 +69,6 @@ class BoardActivity : AppCompatActivity() {
                     rv.adapter!!.notifyDataSetChanged()
                 }
             }
-
-
 
 
         // Assigning variables of right nav
@@ -166,68 +159,62 @@ class BoardActivity : AppCompatActivity() {
             true
         }
 
+        // Inflating the menu and setting the star board option
+        menu = rightNavBoard.menu
+        db.collection("boards")
+            .document(intent.extras?.getString("boardName").toString()).get()
+            .addOnSuccessListener { documentSnapshot ->
+                if(documentSnapshot["favourite"] == "true") {
+                    favouriteBoard = "true"
+                    menu.findItem(R.id.star_board).isVisible = false
+                    menu.findItem(R.id.remove_star_board).isVisible = true
+                }
+                else {
+                    favouriteBoard = "false"
+                    menu.findItem(R.id.remove_star_board).isVisible = false
+                    menu.findItem(R.id.star_board).isVisible = true
+                }
+            }
+
         // Setting onClick for right nav
         rightNavBoard.setNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
 
-                R.id.members -> {
-                    menu = rightNavBoard.menu
-                    menu.clear()
-                    rightNavBoard.inflateMenu(R.menu.member_menu)
-
-                    var count = 0
-                    val rightMemberHeader = arrayListOf<View>()
-                    val rightHeader : View  = rightNavBoard.inflateHeaderView(R.layout.right_nav_header)
-                    rightHeader.elevation = 20.0f
-                    val headerBack = rightHeader.findViewById<ImageButton>(R.id.imageButton_right_nav)
-                    val headerText = rightHeader.findViewById<TextView>(R.id.right_nav_text)
-
-                    headerText.setText(R.string.board_members)
-
-                    db.collection("users").get()
-                        .addOnSuccessListener { querySnapshot ->
-                            querySnapshot.documentChanges.forEach { documentChange ->
-                                val rightMemberHeaderX = rightNavBoard.inflateHeaderView(R.layout.member_layout)
-                                rightMemberHeader.add(rightMemberHeaderX)
-                                val memberImageView : CircleImageView = rightMemberHeaderX.findViewById(R.id.member_image)
-                                val memberNameText : TextView = rightMemberHeaderX.findViewById(R.id.member_name)
-
-                                if (mAuth.currentUser!!.photoUrl != null) {
-                                    val url = mAuth.currentUser!!.photoUrl
-                                    Glide.with(this)
-                                        .load(url)
-                                        .into(memberImageView)
-                                }
-
-                                memberNameText.text = documentChange.document.get("name").toString()
-
-                                count ++
-
-                            }
-                        }.addOnFailureListener { exception ->
-                            Log.e("Member List", exception.message.toString())
-                        }
-
-                    headerBack.setOnClickListener {
-                        rightNavBoard.removeHeaderView(rightHeader)
-                        for(i in 0 until count) {
-                            rightNavBoard.removeHeaderView(rightMemberHeader[i])
-                        }
-                        menu.clear()
-                        rightNavBoard.inflateMenu(R.menu.board_menu)
-                    }
+                R.id.about_board -> {
+                    showAboutBoard()
                 }
 
-                //R.id.invite_members ->
+                R.id.members -> {
+                    showMembers()
+                }
+
+                R.id.invite_members -> {
+                    drawerBoard.closeDrawer(GravityCompat.END)
+                }
 
                 // Setting board as favourite
-//                R.id.favourite_board -> {
-//
-//                }
+                R.id.star_board -> {
+                    favouriteBoard = "true"
+                    db.collection("boards")
+                        .document(intent.extras?.getString("boardName").toString())
+                        .update("favourite", favouriteBoard)
 
-                R.id.about_app -> {
-                    val intent = Intent(this, AboutActivity::class.java)
-                    startActivity(intent)
+                    menu = rightNavBoard.menu
+                    menu.findItem(R.id.star_board).isVisible = false
+                    menu.findItem(R.id.remove_star_board).isVisible = true
+                    drawerBoard.closeDrawer(GravityCompat.END)
+                }
+
+                R.id.remove_star_board -> {
+                    favouriteBoard = "false"
+                    db.collection("boards")
+                        .document(intent.extras?.getString("boardName").toString())
+                        .update("favourite", favouriteBoard)
+
+                    menu = rightNavBoard.menu
+                    menu.findItem(R.id.remove_star_board).isVisible = false
+                    menu.findItem(R.id.star_board).isVisible = true
+                    drawerBoard.closeDrawer(GravityCompat.END)
                 }
 
             }
@@ -296,6 +283,142 @@ class BoardActivity : AppCompatActivity() {
             }
             setView(dialogLayout)
             show()
+        }
+    }
+
+    private fun showMembers() {
+
+        menu = rightNavBoard.menu
+        menu.clear()
+
+        // Setting the header views
+        var count = 0
+        val rightMemberHeader = arrayListOf<View>()
+        val rightHeader : View  = rightNavBoard.inflateHeaderView(R.layout.right_nav_header)
+        rightHeader.elevation = 100.0f
+        val headerBack = rightHeader.findViewById<ImageButton>(R.id.imageButton_right_nav)
+        val headerText = rightHeader.findViewById<TextView>(R.id.right_nav_text)
+
+        headerText.setText(R.string.board_members)
+
+        db.collection("users").get()
+            .addOnSuccessListener { querySnapshot ->
+                querySnapshot.documentChanges.forEach { documentChange ->
+                    val rightMemberHeaderX = rightNavBoard.inflateHeaderView(R.layout.member_layout)
+                    rightMemberHeader.add(rightMemberHeaderX)
+                    val memberImageView : CircleImageView = rightMemberHeaderX.findViewById(R.id.member_image)
+                    val memberNameText : TextView = rightMemberHeaderX.findViewById(R.id.member_name)
+
+                    if (mAuth.currentUser!!.photoUrl != null) {
+                        val url = mAuth.currentUser!!.photoUrl
+                        Glide.with(this)
+                            .load(url)
+                            .into(memberImageView)
+                    }
+
+                    memberNameText.text = documentChange.document.get("name").toString()
+
+                    count ++
+
+                }
+            }.addOnFailureListener { exception ->
+                Log.e("Member List", exception.message.toString())
+            }
+
+        // Task to be performed when back button is clicked
+        headerBack.setOnClickListener {
+            rightNavBoard.removeHeaderView(rightHeader)
+            for(i in 0 until count) {
+                rightNavBoard.removeHeaderView(rightMemberHeader[i])
+            }
+            menu.clear()
+            rightNavBoard.inflateMenu(R.menu.board_menu)
+            if(favouriteBoard == "true") {
+                menu.findItem(R.id.star_board).isVisible = false
+                menu.findItem(R.id.remove_star_board).isVisible = true
+            }
+        }
+    }
+
+    private fun showAboutBoard() {
+
+        menu = rightNavBoard.menu
+        menu.clear()
+
+        // Setting the header view
+        val rightHeader : View  = rightNavBoard.inflateHeaderView(R.layout.right_nav_header)
+        rightHeader.elevation = 100.0f
+        val headerBack = rightHeader.findViewById<ImageButton>(R.id.imageButton_right_nav)
+        val headerText = rightHeader.findViewById<TextView>(R.id.right_nav_text)
+
+        headerText.setText(R.string.about_board)
+
+        // Setting the about header
+        val aboutHeader : View = rightNavBoard.inflateHeaderView(R.layout.about_board_layout)
+        val aboutImageView : CircleImageView = aboutHeader.findViewById(R.id.about_member_image)
+        val aboutNameText : TextView = aboutHeader.findViewById(R.id.about_member_name)
+        val aboutEditDescription : EditText = aboutHeader.findViewById(R.id.about_edit_description)
+        val aboutDescription : TextView = aboutHeader.findViewById(R.id.about_description)
+        val saveDescription : Button = aboutHeader.findViewById(R.id.save_description)
+
+        db.collection("boards")
+            .document(intent.extras?.getString("boardName").toString()).get()
+            .addOnSuccessListener { documentSnapshot ->
+
+                if (mAuth.currentUser!!.photoUrl != null) {
+                    val url = mAuth.currentUser!!.photoUrl
+                    Glide.with(this)
+                        .load(url)
+                        .into(aboutImageView)
+                }
+
+                aboutNameText.text = documentSnapshot.getString("created by(name)").toString()
+
+                // Toggling the visibilities and taking the board description
+                if(documentSnapshot.getString("about") == "") {
+                    aboutEditDescription.visibility = View.VISIBLE
+                    saveDescription.visibility = View.VISIBLE
+
+                    saveDescription.setOnClickListener {
+
+                        if (aboutEditDescription.text.length <= 10) {
+                            aboutEditDescription.error = "Minimum length 10"
+                            aboutDescription.requestFocus()
+                            return@setOnClickListener
+                        }
+
+                        aboutEditDescription.visibility = View.GONE
+                        saveDescription.visibility = View.GONE
+                        aboutDescription.visibility = View.VISIBLE
+
+                        val description = aboutEditDescription.text.toString()
+                        aboutDescription.text = description
+
+                        db.collection("boards")
+                            .document(intent.extras?.getString("boardName").toString())
+                            .update("about", description)
+                    }
+
+                }
+                else {
+                    aboutDescription.visibility = View.VISIBLE
+                    aboutDescription.text = documentSnapshot.getString("about")
+                }
+
+            }.addOnFailureListener { exception ->
+                Log.e("About Board", exception.message.toString())
+            }
+
+        // Task to do when back button is clicked
+        headerBack.setOnClickListener {
+            rightNavBoard.removeHeaderView(rightHeader)
+            rightNavBoard.removeHeaderView(aboutHeader)
+            menu.clear()
+            rightNavBoard.inflateMenu(R.menu.board_menu)
+            if (favouriteBoard == "true") {
+                menu.findItem(R.id.star_board).isVisible = false
+                menu.findItem(R.id.remove_star_board).isVisible = true
+            }
         }
     }
 }

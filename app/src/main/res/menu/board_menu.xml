@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/about_app"
+            android:id="@+id/about_board"
             android:title="@string/about_board"
             android:icon="@drawable/ic_outline_info_24"/>
 
@@ -33,21 +33,17 @@
         <item
             android:id="@+id/star_board"
             android:title="@string/set_star"
-            android:icon="@drawable/ic_round_star_outline_24"/>
+            android:icon="@drawable/ic_round_star_24"/>
 
     </group>
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/group_member"
-        android:visible="false">
+    <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/members_add"
-            android:title="@string/board_members">
-
-            <menu>
-
-            </menu>
+            android:id="@+id/remove_star_board"
+            android:title="@string/remove_star"
+            android:visible="false"
+            android:icon="@drawable/ic_round_star_outline_24">
 
         </item>
     </group>

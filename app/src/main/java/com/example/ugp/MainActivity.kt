@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var myAdapter: BoardsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var listOfBoards : ArrayList<String>
+    private lateinit var listOfFavourites : ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +55,16 @@ class MainActivity : AppCompatActivity() {
         rv_boards.layoutManager = linearLayoutManager
 
         listOfBoards = arrayListOf()
+        listOfFavourites = arrayListOf()
 
         db.collection("boards")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     listOfBoards.add(document.getString("board name")!!)
+                    listOfFavourites.add(document.get("favourite").toString())
                 }
-                myAdapter = BoardsAdapter(this, listOfBoards)
+                myAdapter = BoardsAdapter(this, listOfBoards, listOfFavourites)
                 rv_boards.adapter = myAdapter
             }
             .addOnFailureListener { exception ->
@@ -75,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val header = side_nav.getHeaderView(0)
-        //variables for assigning image,name and emailid
+        //variables for assigning image,name and emailId
         val image = header.findViewById<ImageView>(R.id.nav_image)
         val name = header.findViewById<TextView>(R.id.nav_name)
         val email = header.findViewById<TextView>(R.id.nav_email)
@@ -147,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, "Thank you for staying", Toast.LENGTH_SHORT).show()
 
                     }
-                    builder.setNeutralButton("Cancel") { dialog, which ->
+                    builder.setNeutralButton("Cancel") { _, _ ->
                         Toast.makeText(this, "Thank you for staying", Toast.LENGTH_SHORT).show()
                     }
 
@@ -195,7 +198,9 @@ class MainActivity : AppCompatActivity() {
         val dialogLayout = inflater.inflate(R.layout.create_new_board, null)
         val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
         val currentUser = mAuth.currentUser
-        var name: String? = ""
+        var name : String? = ""
+        val favourite = "false"
+        val about = ""
 
         db.collection("users").document(mAuth.currentUser!!.uid)
             .get()
@@ -205,12 +210,14 @@ class MainActivity : AppCompatActivity() {
 
         with(builder){
             setTitle("Create Board")
-            setPositiveButton("Create"){dialog, which ->
+            setPositiveButton("Create"){ _, _ ->
 
                 val board = hashMapOf(
                     "board name" to txt.text.toString(),
                     "created by(uid)" to currentUser?.uid,
-                    "created by(name)" to name
+                    "created by(name)" to name,
+                    "favourite" to favourite,
+                    "about" to about
                 )
 
                 db.collection("boards")
@@ -218,16 +225,17 @@ class MainActivity : AppCompatActivity() {
                     .set(board, SetOptions.merge())
                     .addOnSuccessListener {
                         val intent = Intent(this@MainActivity, BoardActivity::class.java)
-                        intent.putExtra("boardName",txt.text.toString())
+                        intent.putExtra("boardName", txt.text.toString())
+                        intent.putExtra("favourite", favourite.toString())
                         startActivity(intent)
                         finish()
-                        Log.d("data in firestore" , "true")
+                        Log.d("data in Firestore" , "true")
                     }
                     .addOnFailureListener {
-                        Log.d("data in firestore",it.message.toString() )
+                        Log.d("data in Firestore",it.message.toString() )
                     }
             }
-            setNegativeButton("Cancel"){dialog, which ->
+            setNegativeButton("Cancel"){ _, _ ->
 
             }
             setView(dialogLayout)

@@ -10,7 +10,8 @@ import kotlinx.android.synthetic.main.board_item.view.*
 
 class BoardsAdapter(
     private val context: Context,
-    private val listOfBoards : ArrayList<String>):
+    private val listOfBoards : ArrayList<String>,
+    private val listOfFavourites : ArrayList<String>):
 RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>(){
 
     inner class BoardsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -32,6 +33,9 @@ RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>(){
 
         fun bindBoard(position: Int){
             itemView.tv_board_name.text = listOfBoards[position]
+            if(listOfFavourites[position] == "true") {
+                itemView.favourite_board.visibility = View.VISIBLE
+            }
         }
 
     }
