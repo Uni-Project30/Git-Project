@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.ugp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -73,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
 
                    val user = hashMapOf(
 
-                       "name" to name ,
+                       "name" to name,
                        "email" to email,
                        "phone" to String()
                    )
@@ -82,10 +83,10 @@ class RegisterActivity : AppCompatActivity() {
                         .document(task.result.user!!.uid)
                         .set(user)
                         .addOnSuccessListener {
-                            Log.d("data in firestore" , "true")
+                            Log.d("data in Firestore" , "true")
                         }
                         .addOnFailureListener {
-                            Log.d("data in firestore",it.message.toString() )
+                            Log.d("data in Firestore",it.message.toString() )
                         }
 
                     Log.d("name final", mAuth.currentUser!!.displayName.toString())
