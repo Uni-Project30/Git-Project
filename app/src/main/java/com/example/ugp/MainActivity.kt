@@ -16,6 +16,7 @@ import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ugp.loginFeatures.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -197,7 +198,7 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         val dialogLayout = inflater.inflate(R.layout.create_new_board, null)
-        val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
+        val boardName = dialogLayout.findViewById<EditText>(R.id.et_board_name)
         val currentUser = mAuth.currentUser
         var name : String? = ""
         val favourite = "false"
@@ -214,7 +215,7 @@ class MainActivity : AppCompatActivity() {
             setPositiveButton("Create"){ _, _ ->
 
                 val board = hashMapOf(
-                    "board name" to txt.text.toString(),
+                    "board name" to boardName.text.toString(),
                     "created by(uid)" to currentUser?.uid,
                     "created by(name)" to name,
                     "favourite" to favourite,
@@ -222,11 +223,11 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 db.collection("boards")
-                    .document(txt.text.toString())
+                    .document(boardName.text.toString())
                     .set(board, SetOptions.merge())
                     .addOnSuccessListener {
                         val intent = Intent(this@MainActivity, BoardActivity::class.java)
-                        intent.putExtra("boardName", txt.text.toString())
+                        intent.putExtra("boardName", boardName.text.toString())
                         intent.putExtra("favourite", favourite.toString())
                         startActivity(intent)
                         finish()

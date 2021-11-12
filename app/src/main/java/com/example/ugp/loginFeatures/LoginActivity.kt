@@ -1,4 +1,4 @@
-package com.example.ugp
+package com.example.ugp.loginFeatures
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
+import com.example.ugp.MainActivity
+import com.example.ugp.R
 import com.example.ugp.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -59,13 +61,13 @@ class LoginActivity : AppCompatActivity() {
 
         binding.tvRegisterNowLogin.setOnClickListener {
 
-            val intent = Intent(this,RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvPhoneNumberLogin.setOnClickListener {
 
-            val intent = Intent(this,PhoneLoginActivity::class.java)
+            val intent = Intent(this, PhoneLoginActivity::class.java)
             startActivity(intent)
         }
 

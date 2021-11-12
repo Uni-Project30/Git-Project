@@ -12,13 +12,19 @@
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/side_nav_header.xml" value="0.1" />
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/menu/board_menu.xml" value="0.5" />
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/menu/side_nav.xml" value="0.25" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/drawable-v24/ic_baseline_calendar_today_24.xml" value="0.2703125" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_about.xml" value="0.1921875" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_board.xml" value="0.264" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_card_detail.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_main.xml" value="0.23981481481481481" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_phone_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_register.xml" value="0.18611111111111112" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/board_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/card_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/create_new_board.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/fragment_card_description.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/list_cardview.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
