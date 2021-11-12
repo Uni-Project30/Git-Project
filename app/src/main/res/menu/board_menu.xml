@@ -1,29 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/about_board"
+            android:title="@string/about_board"
+            android:icon="@drawable/ic_outline_info_24"/>
+
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/members"
+            android:icon="@drawable/ic_round_person_24"
+            android:title="@string/board_members" />
+
+    </group>
 
     <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/invite_members"
-            android:title="@string/invite_members" />
+            android:title="@string/invite_members"
+            android:icon="@drawable/ic_round_person_add_24"/>
 
     </group>
 
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/favourite_board"
-            android:title="@string/set_favourite" />
+            android:id="@+id/star_board"
+            android:title="@string/set_star"
+            android:icon="@drawable/ic_round_star_24"/>
 
     </group>
 
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/about_app"
-            android:title="@string/about_board" />
+            android:id="@+id/remove_star_board"
+            android:title="@string/remove_star"
+            android:visible="false"
+            android:icon="@drawable/ic_round_star_outline_24">
 
+        </item>
     </group>
 
 </menu>

@@ -5,7 +5,8 @@
     
     <string name="board_members">Members</string>
     <string name="invite_members">Invite Members</string>
-    <string name="set_favourite">Set as Favourite</string>
+    <string name="set_star">Star Board</string>
+    <string name="remove_star">Remove from Starred Boards</string>
     <string name="about_board">About</string>
 
     <string name="title_activity_login">LoginActivity</string>
@@ -22,4 +23,9 @@
     <string name="creates_new_boards">Creates New Boards</string>
     <string name="name">Name</string>
     <string name="creates_new_lists">Creates New Lists</string>
+
+    <string name="description_hint">Description for your board.</string>
+    <string name="board_creator">Created By :</string>
+    <string name="board_description">Description :</string>
+    <string name="save">Save</string>
 </resources>
