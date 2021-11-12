@@ -3,10 +3,8 @@ package com.example.ugp
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -192,10 +190,37 @@ class BoardActivity : AppCompatActivity() {
         val title = intent.extras?.getString("boardName")
         toolbarBoard.title = title
 
-        //
+//        val board = hashMapOf(
+//            "list_no" to 1
+//        )
+//
+//        db.collection("boards")
+//            .document(title.toString())
+//            .set(board, SetOptions.merge())
+//            .addOnSuccessListener {
+//                Log.d("data in firestore" , "true")
+//            }
+//            .addOnFailureListener {
+//                Log.d("data in firestore",it.message.toString() )
+//            }
+
         btn_create_list.setOnClickListener{
             showCreateBoardDialog()
         }
+//        btn_create_list.setOnClickListener{
+//            db.collection("boards")
+//                .document(title.toString())
+//                .get()
+//                .addOnSuccessListener {
+//                    val docName = it.getField<Int>("list_no")
+//                    showCreateBoardDialog(docName!!)
+//                    Log.d("data in firestore" , "true")
+//                }
+//                .addOnFailureListener {
+//                    Log.d("data in firestore",it.message.toString() )
+//                }
+//
+//        }
     }
 
 
@@ -217,7 +242,7 @@ class BoardActivity : AppCompatActivity() {
         super.onConfigurationChanged(newConfig)
         dualDrawerToggle.onConfigurationChanged(newConfig)
     }
-
+    //private fun showCreateBoardDialog(docName: Int){
     private fun showCreateBoardDialog(){
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -225,21 +250,46 @@ class BoardActivity : AppCompatActivity() {
         val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
         val boardName = intent.extras?.getString("boardName")
 
+
         with(builder){
             setTitle("Add List")
             setPositiveButton("Add List"){dialog, which ->
 
-                val list = hashMapOf(
-                    "name" to txt.text.toString(),
-                )
-
                 db.collection("boards")
-                    .document(boardName.toString())
+                    .document(title.toString())
                     .collection("lists")
-                    .document(txt.text.toString())
-                    .set(list, SetOptions.merge())
+                    .document()
+                    .get()
                     .addOnSuccessListener {
-                        Log.d("data in firestore" , "true")
+                        val docId = it.id
+                        val list = hashMapOf(
+                            "list name" to txt.text.toString(),
+                            "document name" to docId,
+                            docId to txt.text.toString()
+                        )
+
+                        db.collection("boards")
+                            .document(boardName.toString())
+                            .collection("lists")
+                            .document(docId)
+//                  .document(docName.toString())
+                            .set(list, SetOptions.merge())
+                            .addOnSuccessListener {
+//                        db.collection("boards")
+//                            .document(title.toString())
+//                            .get()
+//                            .addOnSuccessListener {
+//                                val docname = it.getField<Int>("list_no")!! + 1
+//                                Log.d("data in firestore" , "true")
+//                            }
+//                            .addOnFailureListener {
+//                                Log.d("data in firestore",it.message.toString() )
+//                            }
+                                Log.d("data in firestore" , "true")
+                            }
+                            .addOnFailureListener {
+                                Log.d("data in firestore",it.message.toString() )
+                            }
                     }
                     .addOnFailureListener {
                         Log.d("data in firestore",it.message.toString() )
