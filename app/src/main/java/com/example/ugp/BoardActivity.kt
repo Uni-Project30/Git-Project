@@ -3,11 +3,17 @@ package com.example.ugp
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
+import android.media.Image
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -297,7 +303,9 @@ class BoardActivity : AppCompatActivity() {
         var count = 0
         val rightMemberHeader = arrayListOf<View>()
         val rightHeader : View  = rightNavBoard.inflateHeaderView(R.layout.right_nav_header)
-        rightHeader.elevation = 100.0f
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            rightHeader.elevation = 100.0f
+        }
         val headerBack = rightHeader.findViewById<ImageButton>(R.id.imageButton_right_nav)
         val headerText = rightHeader.findViewById<TextView>(R.id.right_nav_text)
 
@@ -349,7 +357,9 @@ class BoardActivity : AppCompatActivity() {
 
         // Setting the header view
         val rightHeader : View  = rightNavBoard.inflateHeaderView(R.layout.right_nav_header)
-        rightHeader.elevation = 100.0f
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            rightHeader.elevation = 100.0f
+        }
         val headerBack = rightHeader.findViewById<ImageButton>(R.id.imageButton_right_nav)
         val headerText = rightHeader.findViewById<TextView>(R.id.right_nav_text)
 
