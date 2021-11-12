@@ -1,4 +1,4 @@
-package com.example.ugp
+package com.example.ugp.loginFeatures
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.ugp.MainActivity
 import com.example.ugp.databinding.ActivityPhoneLoginBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
