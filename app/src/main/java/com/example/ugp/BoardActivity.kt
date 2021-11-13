@@ -3,7 +3,6 @@ package com.example.ugp
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
-import android.media.Image
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -265,27 +264,40 @@ class BoardActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         val dialogLayout = inflater.inflate(R.layout.create_new_board,null)
-        val txt = dialogLayout.findViewById<EditText>(R.id.et_board_name)
+        val listName = dialogLayout.findViewById<EditText>(R.id.et_board_name)
         val boardName = intent.extras?.getString("boardName")
 
         with(builder){
             setTitle("Add List")
             setPositiveButton("Add List"){ _, _ ->
 
-                val list = hashMapOf(
-                    "name" to txt.text.toString(),
-                )
-
                 db.collection("boards")
                     .document(boardName.toString())
                     .collection("lists")
-                    .document(txt.text.toString())
-                    .set(list, SetOptions.merge())
+                    .document()
+                    .get()
                     .addOnSuccessListener {
-                        Log.d("data in Firestore" , "true")
+                        val docName = it.id
+                        val list = hashMapOf(
+                            "list_name" to listName.text.toString(),
+                            "doc_name" to docName,
+                            listName.text.toString() to docName,
+                        )
+
+                        db.collection("boards")
+                            .document(boardName.toString())
+                            .collection("lists")
+                            .document(docName)
+                            .set(list, SetOptions.merge())
+                            .addOnSuccessListener {
+                                Log.d("data in Firestore" , "true")
+                            }
+                            .addOnFailureListener {
+                                Log.d("data in Firestore",it.message.toString() )
+                            }
                     }
                     .addOnFailureListener {
-                        Log.d("data in Firestore",it.message.toString() )
+
                     }
             }
             setNegativeButton("Cancel"){ _, _ ->
