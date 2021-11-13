@@ -1,6 +1,8 @@
 package com.example.ugp
 
 data class data_boards_list_card(
-    val bname:String = "",
-    val cname:String = "",
-)
+    val board_name:String = "",
+    val id:String = "",
+    val list_name:String = "",
+    val name:String = ""
+ )
