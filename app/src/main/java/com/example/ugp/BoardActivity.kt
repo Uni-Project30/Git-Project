@@ -62,6 +62,7 @@ class BoardActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@BoardActivity,LinearLayoutManager.HORIZONTAL,false)
         }
 
+
         // getting names of all the boards and saving in the arraylist
         db.collection("boards").document(intent.extras?.getString("boardName").toString()).collection("lists")
             .addSnapshotListener { value, error ->
@@ -74,10 +75,12 @@ class BoardActivity : AppCompatActivity() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         b_list.add(dc.document.toObject(data_board_lists::class.java))
                     }
-                    rv.adapter = Adapter_board_lists(b_list )
+                    rv.adapter = Adapter_board_lists(b_list)
                     rv.adapter!!.notifyDataSetChanged()
                 }
             }
+
+
 
 
         // Assigning variables of right nav
@@ -281,7 +284,8 @@ class BoardActivity : AppCompatActivity() {
                         val list = hashMapOf(
                             "name" to listName.text.toString(),
                             "doc_name" to docName,
-                            listName.text.toString() to docName,
+                            "board_name" to boardName
+//                            listName.text.toString() to docName,
                         )
 
                         db.collection("boards")
