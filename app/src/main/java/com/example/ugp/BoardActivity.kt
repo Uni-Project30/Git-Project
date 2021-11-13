@@ -23,6 +23,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ugp.loginFeatures.LoginActivity
+import com.example.ugp.toggle.DualDrawerToggle
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentChange
@@ -73,7 +75,7 @@ class BoardActivity : AppCompatActivity() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         b_list.add(dc.document.toObject(data_board_lists::class.java))
                     }
-                    rv.adapter = Adapter_board_lists(b_list)
+                    rv.adapter = Adapter_board_lists(b_list )
                     rv.adapter!!.notifyDataSetChanged()
                 }
             }
