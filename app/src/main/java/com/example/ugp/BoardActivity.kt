@@ -279,7 +279,7 @@ class BoardActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         val docName = it.id
                         val list = hashMapOf(
-                            "list_name" to listName.text.toString(),
+                            "name" to listName.text.toString(),
                             "doc_name" to docName,
                             listName.text.toString() to docName,
                         )
