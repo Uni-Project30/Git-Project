@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
     private val mAuth = FirebaseAuth.getInstance()
 
     //variables for adapter
-    private lateinit var myAdapter: BoardsAdapter
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var myAdapter : BoardsAdapter
+    private lateinit var linearLayoutManager : LinearLayoutManager
     private lateinit var listOfBoards : ArrayList<String>
     private lateinit var listOfFavourites : ArrayList<String>
 
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     listOfBoards.add(document.getString("board name")!!)
-                    listOfFavourites.add(document.get("favourite").toString())
+                    listOfFavourites.add(document.getString("favourite").toString())
                 }
                 myAdapter = BoardsAdapter(this, listOfBoards, listOfFavourites)
                 rv_boards.adapter = myAdapter
@@ -117,22 +117,26 @@ class MainActivity : AppCompatActivity() {
                 .into(image)
         }
 
-        //setting onClick for side nav options
+        // Making option home as invisible
+        val menu = side_nav.menu
+        menu.findItem(R.id.home).isVisible = false
 
+        //setting onClick for side nav options
         side_nav.setNavigationItemSelectedListener {
             drawer.closeDrawer(GravityCompat.START)
             when (it.itemId) {
-                R.id.home -> {
-                    // this will take to main activity
-                    val i = Intent(this, MainActivity::class.java)
-                    startActivity(i)
+
+                R.id.starred_boards -> {
+                    // this will take to star board activity
+                    val intent = Intent(this, StarredBoardActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
                 R.id.profile -> {
                     // this will take to profile activity
-                    val i = Intent(this, ProfileActivity::class.java)
-                    startActivity(i)
-
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
                 R.id.logout -> {
                     // This will show a dialog box foe logging out

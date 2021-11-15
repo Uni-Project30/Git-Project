@@ -136,15 +136,25 @@ class BoardActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.home -> {
                     // this will take to main activity
-                    val i = Intent(this, MainActivity::class.java)
-                    startActivity(i)
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
+
+                R.id.starred_boards -> {
+                    // this will take to star board activity
+                    val intent = Intent(this, StarredBoardActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
                 R.id.profile -> {
                     // this will take to profile activity
-                    val i = Intent(this, ProfileActivity::class.java)
-                    startActivity(i)
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
+
                 R.id.logout -> {
                     // This will show a dialog box foe logging out
                     val builder = this.let { it1 -> AlertDialog.Builder(it1) }

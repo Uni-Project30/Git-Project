@@ -7,12 +7,13 @@ import android.widget.DatePicker
 import com.example.ugp.databinding.ActivityCardDetailBinding
 import java.util.*
 
-private lateinit var binding : ActivityCardDetailBinding
-
-private var startDateClicked : Boolean = false
-private var endDateClicked : Boolean = false
-
 class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+    private lateinit var binding : ActivityCardDetailBinding
+
+    private var startDateClicked : Boolean = false
+    private var endDateClicked : Boolean = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
