@@ -10,8 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UGP">
         <activity
-            android:name=".CardDetailActivity"
+            android:name=".StarredBoardActivity"
             android:exported="false" />
+        <activity
+            android:name=".CardDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".BoardActivity" />
         <activity
             android:name=".loginFeatures.PhoneLoginActivity"
             android:exported="true" />
@@ -38,10 +42,6 @@
             </intent-filter>
             -->
         </activity>
-        <activity
-            android:name=".AboutActivity"
-            android:exported="false"
-            android:parentActivityName=".BoardActivity" />
         <activity
             android:name=".BoardActivity"
             android:exported="false" />

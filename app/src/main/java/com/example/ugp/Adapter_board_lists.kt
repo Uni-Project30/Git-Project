@@ -76,6 +76,7 @@ class Adapter_board_lists(val data: ArrayList<data_board_lists>,val context: Con
             holder.tick.visibility = View.VISIBLE
             holder.cancel.visibility = View.VISIBLE
             holder.list_name.visibility = View.VISIBLE
+            holder.list_name.setText(holder.list_name_t.text.toString())
             holder.list_name_t.visibility = View.INVISIBLE
         }
 

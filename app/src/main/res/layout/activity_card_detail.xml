@@ -1,81 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardLinearLayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".CardDetailActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_cardName"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/about_card_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textSize="24sp"
-        android:padding="4dp"
-        />
-    <TextView
-        android:id="@+id/tv_listName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="In list: "
-        android:padding="4dp"/>
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="8dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+        android:id="@+id/cardLinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_card_toolbar"
+        tools:context=".CardDetailActivity">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_round_arrow_back_24"
-            android:padding="2dp"
-            />
         <TextView
-            android:id="@+id/tv_cardDescription"
+            android:id="@+id/tv_cardName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:maxLines="10"
-            android:minLines="3"
-            android:hint="Tap to add a description"
-            />
+            android:layout_marginTop="16dp"
+            android:padding="4dp"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_listName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="4dp"
+            android:text="In list: " />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:src="@drawable/ic_round_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/tv_cardDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:hint="Tap to add a description"
+                android:maxLines="10"
+                android:minLines="3" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_cardStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="8dp"
+            android:padding="12dp"
+
+            app:drawableLeftCompat="@drawable/ic_baseline_access_time_24" />
+
+        <TextView
+            android:id="@+id/tv_cardEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:padding="12dp"
+            app:drawableRightCompat="@android:drawable/checkbox_off_background" />
+
+        <TextView
+            android:id="@+id/tv_cardMembers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="8dp"
+            app:drawableLeftCompat="@drawable/ic_round_person_24" />
+        \
     </LinearLayout>
 
-<TextView
-    android:id="@+id/tv_cardStartDate"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    app:drawableLeftCompat="@drawable/ic_baseline_access_time_24"
-    android:drawablePadding="8dp"
-
-    android:padding="12dp"/>
-
-    <TextView
-        android:id="@+id/tv_cardEndDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:drawablePadding="8dp"
-        app:drawableRightCompat="@android:drawable/checkbox_off_background" />
-
-    <TextView
-        android:id="@+id/tv_cardMembers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:drawableLeftCompat="@drawable/ic_round_person_24"
-        android:drawablePadding="8dp"/>
-
-
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

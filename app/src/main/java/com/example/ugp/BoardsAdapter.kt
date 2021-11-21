@@ -24,10 +24,9 @@ RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>(){
         override fun onClick(v: View?) {
             val position = bindingAdapterPosition
             if (position!=RecyclerView.NO_POSITION){
-                val intent = Intent(v?.context,BoardActivity::class.java)
+                val intent = Intent(v?.context, BoardActivity::class.java)
                 intent.putExtra("boardName",itemView.tv_board_name.text.toString())
                 itemView.context.startActivity(intent)
-                (context as MainActivity).finish()
             }
         }
 
