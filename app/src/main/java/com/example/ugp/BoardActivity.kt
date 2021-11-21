@@ -36,11 +36,13 @@ import kotlinx.android.synthetic.main.activity_board.*
 
 class BoardActivity : AppCompatActivity() {
 
+    private var c_list:ArrayList<data_boards_list_card> = ArrayList()
     private lateinit var dualDrawerToggle: DualDrawerToggle
     private lateinit var drawerBoard: DrawerLayout
     private lateinit var rightNavBoard: NavigationView
     private lateinit var toolbarBoard: Toolbar
     private lateinit var leftNavBoard: NavigationView
+
 
     private val mAuth = Firebase.auth
     private val db = Firebase.firestore
@@ -48,13 +50,13 @@ class BoardActivity : AppCompatActivity() {
     private lateinit var menu : Menu
     private val b_list: ArrayList<data_board_lists> = ArrayList()
     private lateinit var rv:RecyclerView
+    private lateinit var rv_l:RecyclerView
 
     private var favouriteBoard = intent?.extras?.getString("favourite")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
-
 
 
         rv = findViewById(R.id.boards_list_rv)
@@ -75,12 +77,21 @@ class BoardActivity : AppCompatActivity() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         b_list.add(dc.document.toObject(data_board_lists::class.java))
                     }
-                    rv.adapter = Adapter_board_lists(b_list)
+                    rv.adapter = Adapter_board_lists(b_list,this)
                     rv.adapter!!.notifyDataSetChanged()
+
+                    val sf = getSharedPreferences("s1", MODE_PRIVATE)
+                    val set = sf.edit()
+                    val s = sf.getInt("list",0)
+                    if(s==1)
+                    {
+                        rv.scrollToPosition(b_list.size-1)
+                        set.apply {
+                            putInt("list",0)
+                        }.apply()
+                    }
                 }
             }
-
-
 
 
         // Assigning variables of right nav
@@ -299,6 +310,11 @@ class BoardActivity : AppCompatActivity() {
                             .addOnFailureListener {
                                 Log.d("data in Firestore",it.message.toString() )
                             }
+                        val sf = getSharedPreferences("s1", MODE_PRIVATE)
+                        val set = sf.edit()
+                        set.apply {
+                            putInt("list",1)
+                        }.apply()
                     }
                     .addOnFailureListener {
 
