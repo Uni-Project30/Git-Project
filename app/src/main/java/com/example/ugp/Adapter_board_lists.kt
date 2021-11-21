@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.list_cardview.view.*
+import kotlinx.android.synthetic.main.list_cardview1.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,7 +25,7 @@ class Adapter_board_lists(val data: ArrayList<data_board_lists>,val context: Con
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val v = inflater.inflate(R.layout.list_cardview, parent, false)
+        val v = inflater.inflate(R.layout.list_cardview1, parent, false)
         v.list_name.visibility = View.INVISIBLE
         v.tick_btn.visibility = View.INVISIBLE
         v.cancel_btn.visibility = View.INVISIBLE
