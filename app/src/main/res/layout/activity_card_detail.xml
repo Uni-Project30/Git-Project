@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:maxLines="10"
-            android:minLines="3"
+            android:minLines="5"
             android:hint="Tap to add a description"
             />
     </LinearLayout>

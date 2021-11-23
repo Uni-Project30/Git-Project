@@ -14,7 +14,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.list_cardview.view.*
 
-class Adapter_board_lists(val data: ArrayList<data_board_lists>):RecyclerView.Adapter<Adapter_board_lists.ViewHolder>() {
+class Adapter_board_lists(private val data: ArrayList<data_board_lists>):RecyclerView.Adapter<Adapter_board_lists.ViewHolder>() {
 
 
 
