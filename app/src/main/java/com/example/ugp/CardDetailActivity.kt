@@ -1,9 +1,10 @@
 package com.example.ugp
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.DatePicker
+import androidx.appcompat.app.AppCompatActivity
 import com.example.ugp.databinding.ActivityCardDetailBinding
 import java.util.*
 
@@ -22,28 +23,34 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
         binding.tvCardStartDate.setOnClickListener {
             startDateClicked = true
-            showDatePickerDialog()
-
+            showDatePickerStartDialog()
         }
 
         binding.tvCardEndDate.setOnClickListener {
-            endDateClicked = true
-            showDatePickerDialog()
 
+//            if(!startDateClicked || binding.tvCardStartDate.text == null) {
+//                binding.tvCardStartDate.error = "Enter Starting Date"
+//                binding.tvCardStartDate.requestFocus()
+//                return@setOnClickListener
+//            }
+            endDateClicked = true
+            showDatePickerEndDialog()
         }
 
         binding.tvCardDescription.setOnClickListener {
 
+            binding.aboutCardToolbar.visibility = View.GONE
+            binding.cardLinearLayout.visibility = View.GONE
             val fragment = CardDescription()
             supportFragmentManager.beginTransaction()
-                .replace(android.R.id.content ,fragment )
+                .replace(android.R.id.content, fragment)
                 .commit()
         }
 
 
     }
 
-    private fun showDatePickerDialog() {
+    private fun showDatePickerStartDialog() {
         val datePickerDialog = DatePickerDialog(
             this,
             this,
@@ -51,7 +58,26 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             Calendar.getInstance()[Calendar.MONTH],
             Calendar.getInstance()[Calendar.DAY_OF_MONTH]
         )
-        datePickerDialog.datePicker.maxDate = Calendar.getInstance().timeInMillis
+        datePickerDialog.datePicker.minDate = Calendar.getInstance().timeInMillis
+        datePickerDialog.show()
+    }
+
+    private fun showDatePickerEndDialog() {
+
+        val startDate = binding.tvCardStartDate.text.toString()
+
+        Calendar.getInstance().set(Calendar.DAY_OF_MONTH, Integer.parseInt(startDate.split("/")[0]))
+        Calendar.getInstance().set(Calendar.MONTH, Integer.parseInt(startDate.split("/")[1]) - 1)
+        Calendar.getInstance().set(Calendar.YEAR, Integer.parseInt(startDate.split("/")[2]))
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            this,
+            Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.MONTH),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.datePicker.minDate = Calendar.getInstance().timeInMillis
         datePickerDialog.show()
     }
 
