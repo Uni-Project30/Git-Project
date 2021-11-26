@@ -4,11 +4,17 @@
     //group 1
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/home"
-            android:title="Home"
-            android:icon="@drawable/icon_home">
-        </item>
-        </group>
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/icon_home"
+            android:title="Home"/>
+
+        <item
+            android:id="@+id/starred_boards"
+            android:icon="@drawable/ic_round_star_24"
+            android:title="Starred Boards" />
+
+    </group>
 
     //group 2 - Account
 
@@ -16,22 +22,22 @@
 
         // Setting a title to group 2 - Account
 
-        <item android:title ="Account">
+        <item android:title="Account">
             <menu>
 
                 // Profile
 
                 <item
                     android:id="@+id/profile"
-                    android:title="Profile"
-                    android:icon="@drawable/icon_profile" />
+                    android:icon="@drawable/icon_profile"
+                    android:title="Profile" />
 
                 // Logout
 
                 <item
                     android:id="@+id/logout"
-                    android:title="Logout"
-                    android:icon="@drawable/icon_logout" />
+                    android:icon="@drawable/icon_logout"
+                    android:title="Logout" />
             </menu>
         </item>
 

@@ -36,11 +36,13 @@ import kotlinx.android.synthetic.main.activity_board.*
 
 class BoardActivity : AppCompatActivity() {
 
+    private var c_list:ArrayList<data_boards_list_card> = ArrayList()
     private lateinit var dualDrawerToggle: DualDrawerToggle
     private lateinit var drawerBoard: DrawerLayout
     private lateinit var rightNavBoard: NavigationView
     private lateinit var toolbarBoard: Toolbar
     private lateinit var leftNavBoard: NavigationView
+
 
     private val mAuth = Firebase.auth
     private val db = Firebase.firestore
@@ -48,6 +50,7 @@ class BoardActivity : AppCompatActivity() {
     private lateinit var menu : Menu
     private val b_list: ArrayList<data_board_lists> = ArrayList()
     private lateinit var rv:RecyclerView
+    private lateinit var rv_l:RecyclerView
 
     private var favouriteBoard = intent?.extras?.getString("favourite")
 
@@ -56,11 +59,11 @@ class BoardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_board)
 
 
-
         rv = findViewById(R.id.boards_list_rv)
         rv.apply {
             layoutManager = LinearLayoutManager(this@BoardActivity,LinearLayoutManager.HORIZONTAL,false)
         }
+
 
         // getting names of all the boards and saving in the arraylist
         db.collection("boards").document(intent.extras?.getString("boardName").toString()).collection("lists")
@@ -74,8 +77,19 @@ class BoardActivity : AppCompatActivity() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         b_list.add(dc.document.toObject(data_board_lists::class.java))
                     }
-                    rv.adapter = Adapter_board_lists(b_list )
+                    rv.adapter = Adapter_board_lists(b_list,this)
                     rv.adapter!!.notifyDataSetChanged()
+
+                    val sf = getSharedPreferences("s1", MODE_PRIVATE)
+                    val set = sf.edit()
+                    val s = sf.getInt("list",0)
+                    if(s==1)
+                    {
+                        rv.scrollToPosition(b_list.size-1)
+                        set.apply {
+                            putInt("list",0)
+                        }.apply()
+                    }
                 }
             }
 
@@ -133,15 +147,25 @@ class BoardActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.home -> {
                     // this will take to main activity
-                    val i = Intent(this, MainActivity::class.java)
-                    startActivity(i)
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
+
+                R.id.starred_boards -> {
+                    // this will take to star board activity
+                    val intent = Intent(this, StarredBoardActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
                 R.id.profile -> {
                     // this will take to profile activity
-                    val i = Intent(this, ProfileActivity::class.java)
-                    startActivity(i)
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
+
                 R.id.logout -> {
                     // This will show a dialog box foe logging out
                     val builder = this.let { it1 -> AlertDialog.Builder(it1) }
@@ -281,7 +305,7 @@ class BoardActivity : AppCompatActivity() {
                         val list = hashMapOf(
                             "name" to listName.text.toString(),
                             "doc_name" to docName,
-                            listName.text.toString() to docName,
+                            "board_name" to boardName
                         )
 
                         db.collection("boards")
@@ -295,6 +319,11 @@ class BoardActivity : AppCompatActivity() {
                             .addOnFailureListener {
                                 Log.d("data in Firestore",it.message.toString() )
                             }
+                        val sf = getSharedPreferences("s1", MODE_PRIVATE)
+                        val set = sf.edit()
+                        set.apply {
+                            putInt("list",1)
+                        }.apply()
                     }
                     .addOnFailureListener {
 
