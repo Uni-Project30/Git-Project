@@ -1,9 +1,10 @@
 package com.example.ugp
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.DatePicker
+import androidx.appcompat.app.AppCompatActivity
 import com.example.ugp.databinding.ActivityCardDetailBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -49,19 +50,13 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             }
 
 
-
-
-
-
-
-
-
         binding.tvCardName.text = card_name.toString()
         binding.tvListName.append(list_text.toString())
 
 
         binding.tvCardStartDate.setOnClickListener {
             startDateClicked = true
+
             showDatePickerDialogStartDate()
 
         }
@@ -74,16 +69,20 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
         binding.tvCardDescription.setOnClickListener {
 
+            binding.aboutCardToolbar.visibility = View.GONE
+            binding.cardLinearLayout.visibility = View.GONE
             val fragment = CardDescription()
             supportFragmentManager.beginTransaction()
-                .replace(android.R.id.content ,fragment )
+                .replace(android.R.id.content, fragment)
                 .commit()
         }
 
 
     }
 
+
     private fun showDatePickerDialogStartDate() {
+
         val datePickerDialog = DatePickerDialog(
             this,
             this,
@@ -94,6 +93,7 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         datePickerDialog.datePicker.maxDate = Calendar.getInstance().timeInMillis
         datePickerDialog.show()
     }
+
     private fun showDatePickerDialogEndDate() {
         val datePickerDialog = DatePickerDialog(
             this,
