@@ -6,22 +6,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.list_cardview1.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
-class Adapter_board_lists(val data: ArrayList<data_board_lists>,val context: Context) :
+
+class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val context: Context) :
     RecyclerView.Adapter<Adapter_board_lists.ViewHolder>() {
 
     private val viewPool = RecyclerView.RecycledViewPool()
     private var c_list: ArrayList<data_boards_list_card> = ArrayList()
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -135,7 +138,11 @@ class Adapter_board_lists(val data: ArrayList<data_board_lists>,val context: Con
                     "board_name" to data[position].board_name,
                     "card_id" to card_id,
                     "card_name" to holder.card_name.text.toString(),
-                    "list_name" to data[position].doc_name
+                    "list_name" to data[position].doc_name,
+                    "list_text" to data[position].name,
+                    "description" to "",
+                    "start_date" to "",
+                    "end_date" to ""
                 )
 
                 db.collection("boards")
@@ -180,3 +187,4 @@ class Adapter_board_lists(val data: ArrayList<data_board_lists>,val context: Con
         }
     }
 }
+
