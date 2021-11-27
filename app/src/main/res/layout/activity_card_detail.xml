@@ -18,7 +18,7 @@
         android:visibility="gone"
         tools:layout="@layout/fragment_card_description" />
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/about_card_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
