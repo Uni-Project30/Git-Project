@@ -256,7 +256,7 @@ class BoardActivity : AppCompatActivity() {
 
         //added board name to appbar title
         val title = intent.extras?.getString("boardName")
-        toolbarBoard.title = title
+        tv_title.text = title
 
         //
         btn_create_list.setOnClickListener{

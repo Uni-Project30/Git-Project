@@ -25,7 +25,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#1E1C1C">
 
             <FrameLayout
                 android:id="@+id/f1"
@@ -44,15 +45,12 @@
                     android:layout_height="44dp"
                     android:gravity="center_vertical"
                     android:hint="TextView"
-                    android:paddingLeft="7dp"
-                    android:textColor="@color/black"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.271"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.058" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/cancel_btn"
@@ -74,7 +72,7 @@
                     android:maxLines="1"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.552"
@@ -103,6 +101,7 @@
                 android:layout_width="340dp"
                 android:layout_height="wrap_content"
                 android:maxHeight="300dp"
+                android:background="#FF1E1C1C"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
