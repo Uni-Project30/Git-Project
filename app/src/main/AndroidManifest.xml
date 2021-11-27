@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UGP">
         <activity
+            android:name=".CardMemberActivity"
+            android:exported="false" />
+        <activity
             android:name=".StarredBoardActivity"
             android:exported="false" />
         <activity

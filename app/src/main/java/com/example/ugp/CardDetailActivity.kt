@@ -1,6 +1,7 @@
 package com.example.ugp
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
@@ -75,6 +76,15 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             supportFragmentManager.beginTransaction()
                 .replace(android.R.id.content, fragment)
                 .commit()
+        }
+
+
+        binding.llMembers.setOnClickListener {
+
+            val intent = Intent(this,CardMemberActivity::class.java)
+
+            startActivity(intent)
+
         }
 
 
