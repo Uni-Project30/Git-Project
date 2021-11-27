@@ -1,81 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".loginFeatures.LoginActivity"
-    android:padding="16dp"
     android:orientation="vertical"
-    >
+    tools:context=".loginFeatures.LoginActivity">
 
+    <FrameLayout
+        android:id="@+id/frame1"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@drawable/blue_bg">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="74dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="32dp"
+                android:src="@drawable/logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.27" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="275dp"
+                android:layout_height="75dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/logo_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.246" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <EditText
         android:id="@+id/et_email_login"
-        android:layout_width="match_parent"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:padding="8dp"
-        android:inputType="textEmailAddress"
-        android:hint="Email Id"
+        android:layout_below="@+id/lg"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="65dp"
+        android:background="@drawable/back1"
         android:drawableLeft="@drawable/icon_profile"
-        android:drawablePadding="8dp"/>
+        android:drawablePadding="8dp"
+        android:hint="Email Id"
+        android:inputType="textEmailAddress"
+        android:padding="8dp"
+        />
+
     <EditText
         android:id="@+id/et_password_login"
-        android:layout_width="match_parent"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="8dp"
-        android:inputType="textPassword"
+        android:layout_below="@+id/et_email_login"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="65dp"
+        android:background="@drawable/back1"
         android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:drawablePadding="8dp"
-        android:hint="Password"/>
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/lg"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/frame1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="165dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Login"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
 
     <Button
         android:id="@+id/bt_login_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/et_password_login"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:text="Login"
-        />
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/back_button"
+        android:padding="5dp"
+        android:text="Login" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/tv_google_login"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/or"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:layout_toStartOf="@+id/tv_phoneNumber_login"
+        android:padding="2dp"
+        android:src="@drawable/icon_google" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/tv_phoneNumber_login"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/or"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="140dp"
+        android:src="@drawable/ic__phone_login" />
+
 
     <TextView
         android:id="@+id/tv_registerNow_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_below="@+id/or"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="95dp"
+        android:layout_marginEnd="100dp"
         android:padding="8dp"
-        android:text="Register now"
+        android:text="New User? Register now"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
+
     <TextView
+        android:id="@+id/or"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_login_login"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="190dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="2dp"
         android:text="OR"
-        android:layout_gravity="center"/>
-    <TextView
-        android:drawableLeft="@drawable/icon_phone"
-        android:drawablePadding="8dp"
-        android:id="@+id/tv_phoneNumber_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="LOGIN WITH PHONE NUMBER"
-        android:layout_gravity="center"
-        android:textAlignment="center"/>
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tv_google_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="LOGIN WITH GOOGLE"
-        android:layout_gravity="center"
-        android:textAlignment="center"/>
+<!--    <TextView-->
+<!--        android:id="@+id/tv_phoneNumber_login"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/p_login"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="72dp"-->
+<!--        android:drawableLeft="@drawable/icon_phone"-->
+<!--        android:drawablePadding="8dp"-->
+<!--        android:text="LOGIN WITH PHONE NUMBER"-->
+<!--        android:textAlignment="center" />-->
 
+    <!--    <TextView-->
+<!--        android:id="@+id/tv_google_login"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/bt_login_login"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="182dp"-->
+<!--        android:layout_marginEnd="-31dp"-->
+<!--        android:text="LOGIN WITH GOOGLE"-->
+<!--        android:textAlignment="center" />-->
 
-
-
-</LinearLayout>
+</RelativeLayout>
