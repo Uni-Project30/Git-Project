@@ -15,6 +15,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth : FirebaseAuth
     private lateinit var googleSignInClient  : GoogleSignInClient
     private val RC_SIGN_IN = 100
+    private val db = Firebase.firestore
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,6 +121,27 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("LoginActivity", "signInWithCredential:success")
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                     Log.d("LoginActivity",mAuth.currentUser?.displayName.toString())
+
+                    val user = hashMapOf(
+
+                        "name" to task.result.user?.displayName,
+                        "email" to task.result.user?.email,
+                        "phone" to task.result.user?.phoneNumber
+                    )
+
+                    db.collection("users")
+                        .document(task.result.user!!.uid)
+                        .set(user)
+                        .addOnSuccessListener {
+                            Log.d("data in Firestore" , "true")
+                        }
+                        .addOnFailureListener {
+                            Log.d("data in Firestore",it.message.toString() )
+                        }
+
+                    Log.d("name final", mAuth.currentUser!!.displayName.toString())
+                    Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()

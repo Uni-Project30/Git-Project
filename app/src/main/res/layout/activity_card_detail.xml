@@ -105,7 +105,7 @@
             android:layout_marginTop="16dp"
             android:drawablePadding="8dp"
             app:drawableLeftCompat="@drawable/ic_round_person_24" />
-        \
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

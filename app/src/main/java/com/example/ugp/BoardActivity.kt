@@ -306,7 +306,6 @@ class BoardActivity : AppCompatActivity() {
                             "name" to listName.text.toString(),
                             "doc_name" to docName,
                             "board_name" to boardName
-//                            listName.text.toString() to docName,
                         )
 
                         db.collection("boards")
