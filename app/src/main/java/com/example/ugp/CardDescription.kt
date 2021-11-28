@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 
@@ -38,10 +37,6 @@ class CardDescription : Fragment() {
 
         cardDescriptionToolbar = view.findViewById(R.id.cardDescriptionToolbar)
         cardDescription = view.findViewById(R.id.textView)
-
-//        (activity as AppCompatActivity).setSupportActionBar(cardDescriptionToolbar)
-//        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
 
         cardDescriptionToolbar.navigationIcon = ResourcesCompat.getDrawable(resources,
             R.drawable.ic_round_arrow_back_24, resources.newTheme())

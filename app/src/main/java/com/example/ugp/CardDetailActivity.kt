@@ -2,10 +2,13 @@ package com.example.ugp
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.example.ugp.databinding.ActivityCardDetailBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -26,6 +29,19 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
         binding = ActivityCardDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.aboutCardToolbar)
+        binding.aboutCardToolbar.navigationIcon = ResourcesCompat.getDrawable(resources,
+            R.drawable.ic_round_arrow_back_24, resources.newTheme())
+        binding.aboutCardToolbar.navigationIcon?.colorFilter = PorterDuffColorFilter(
+            ResourcesCompat
+            .getColor(resources, R.color.black, resources.newTheme()), PorterDuff.Mode.SRC_ATOP)
+
+        binding.aboutCardToolbar.setNavigationOnClickListener{
+            val intent = Intent(this, BoardActivity::class.java)
+            intent.putExtra("boardName", binding.tvCardName.text.toString())
+            startActivity(intent)
+        }
 
          board_name = intent.extras?.getString("board_name")
          card_id = intent.extras?.getString("card_id")
@@ -145,5 +161,13 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
                 .update("end_date", "       $date")
         }
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, BoardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
     }
 }
