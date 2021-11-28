@@ -13,14 +13,22 @@ import androidx.fragment.app.Fragment
 
 
 class CardDescription : Fragment() {
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     private  lateinit var cardDescriptionToolbar : androidx.appcompat.widget.Toolbar
     private lateinit var cardDescription : TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_card_description, container, false)
     }
 

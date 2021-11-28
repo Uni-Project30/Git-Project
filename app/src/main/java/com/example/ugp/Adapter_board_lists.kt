@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.list_cardview1.view.*
+import kotlin.collections.ArrayList
+
 
 class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val context: Context) :
     RecyclerView.Adapter<Adapter_board_lists.ViewHolder>() {
@@ -136,7 +138,11 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
                     "board_name" to data[position].board_name,
                     "card_id" to card_id,
                     "card_name" to holder.card_name.text.toString(),
-                    "list_name" to data[position].doc_name
+                    "list_name" to data[position].doc_name,
+                    "list_text" to data[position].name,
+                    "description" to "",
+                    "start_date" to "",
+                    "end_date" to ""
                 )
 
                 db.collection("boards")
@@ -181,3 +187,4 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
         }
     }
 }
+

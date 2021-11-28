@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 myAdapter = BoardsAdapter(this, listOfBoards, listOfFavourites)
                 rv_boards.adapter = myAdapter
+                Log.d("Main Activity","adapter set")
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this,exception.message.toString(),Toast.LENGTH_SHORT).show()

@@ -256,7 +256,7 @@ class BoardActivity : AppCompatActivity() {
 
         //added board name to appbar title
         val title = intent.extras?.getString("boardName")
-        toolbarBoard.title = title
+        tv_title.text = title
 
         //
         btn_create_list.setOnClickListener{
@@ -306,7 +306,6 @@ class BoardActivity : AppCompatActivity() {
                             "name" to listName.text.toString(),
                             "doc_name" to docName,
                             "board_name" to boardName
-//                            listName.text.toString() to docName,
                         )
 
                         db.collection("boards")
