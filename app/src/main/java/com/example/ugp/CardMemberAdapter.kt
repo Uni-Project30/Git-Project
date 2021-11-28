@@ -1,15 +1,25 @@
 package com.example.ugp
 
+import android.R
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckedTextView
-
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import de.hdodenhof.circleimageview.CircleImageView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import java.io.FileNotFoundException
+import java.io.InputStream
 
-class CardMemberAdapter(val memberList: ArrayList<String>) :RecyclerView.Adapter<CardMemberAdapter.ViewHolder>() {
+
+class CardMemberAdapter(val memberList: ArrayList<String>, val context : Context) :RecyclerView.Adapter<CardMemberAdapter.ViewHolder>() {
+
+    val mAuth = Firebase.auth
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -17,7 +27,7 @@ class CardMemberAdapter(val memberList: ArrayList<String>) :RecyclerView.Adapter
     ): CardMemberAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val v = inflater.inflate(R.layout.card_card_member,parent,false)
+        val v = inflater.inflate(R.layout.,parent,false)
         Log.d("card","reached")
 
 
@@ -27,6 +37,19 @@ class CardMemberAdapter(val memberList: ArrayList<String>) :RecyclerView.Adapter
     override fun onBindViewHolder(holder: CardMemberAdapter.ViewHolder, position: Int) {
 
         holder.name.text = memberList[position]
+        val pic = mAuth.currentUser?.photoUrl
+        var yourDrawable : Drawable?
+
+        try {
+
+            val inputStream: InputStream? = context.contentResolver.openInputStream(pic!!)!!
+            yourDrawable = Drawable.createFromStream(inputStream, pic.toString())
+        } catch (e: FileNotFoundException) {
+            yourDrawable = ContextCompat.getDrawable( context, R.drawable.sym_call_incoming);
+        }
+
+
+      //  holder.name.setCompoundDrawablesWithIntrinsicBounds()
     }
 
     override fun getItemCount(): Int {
@@ -35,9 +58,8 @@ class CardMemberAdapter(val memberList: ArrayList<String>) :RecyclerView.Adapter
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
-        val image = v.findViewById<CircleImageView>(R.id.iv_member_image)
-        val name = v.findViewById<CheckedTextView>(R.id.checked_tv)
 
+        val name = v.findViewById<TextView>(R.id.)
 
     }
 }

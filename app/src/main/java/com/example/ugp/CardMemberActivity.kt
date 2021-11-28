@@ -1,5 +1,6 @@
 package com.example.ugp
 
+import android.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,10 +34,8 @@ class CardMemberActivity : AppCompatActivity() {
                 querySnapshot.forEach {
 
                     memberList.add(it["name"].toString())
-
-
                 }
-                myAdapter = CardMemberAdapter(memberList)
+                myAdapter = CardMemberAdapter(memberList, this)
                 binding.rvCardMembers.adapter = myAdapter
 
             }
