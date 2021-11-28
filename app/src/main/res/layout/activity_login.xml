@@ -159,28 +159,5 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_phoneNumber_login"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/p_login"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginTop="72dp"-->
-<!--        android:drawableLeft="@drawable/icon_phone"-->
-<!--        android:drawablePadding="8dp"-->
-<!--        android:text="LOGIN WITH PHONE NUMBER"-->
-<!--        android:textAlignment="center" />-->
-
-    <!--    <TextView-->
-<!--        android:id="@+id/tv_google_login"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/bt_login_login"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginTop="182dp"-->
-<!--        android:layout_marginEnd="-31dp"-->
-<!--        android:text="LOGIN WITH GOOGLE"-->
-<!--        android:textAlignment="center" />-->
 
 </RelativeLayout>
