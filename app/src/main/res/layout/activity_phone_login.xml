@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,10 +13,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="@drawable/blue_bg">
+        android:background="@drawable/blue_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,12 +47,15 @@
         android:layout_below="@+id/frame3"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="75dp"
         android:background="@drawable/back1"
         android:drawableLeft="@drawable/icon_profile"
         android:drawablePadding="12dp"
         android:hint="Name"
-        android:padding="8dp" />
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frame3" />
 
     <com.hbb20.CountryCodePicker
         android:id="@+id/countryCodePicker"
@@ -59,8 +64,11 @@
         android:layout_below="@id/et_name_phoneLogin"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="145dp"
-        android:paddingLeft="8dp" />
+        android:paddingLeft="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_name_phoneLogin" />
 
     <EditText
         android:id="@+id/et_phoneNumber"
@@ -68,9 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/countryCodePicker"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="75dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/back1"
         android:gravity="center_horizontal"
         android:hint="Phone number"
@@ -80,7 +86,10 @@
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
         android:paddingRight="8dp"
-        android:paddingBottom="8dp" />
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countryCodePicker" />
 
     <Button
         android:id="@+id/bt_sendOtp"
@@ -89,13 +98,17 @@
         android:layout_below="@+id/et_phoneNumber"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="110dp"
         android:width="200dp"
         android:height="40dp"
         android:background="@drawable/back_button"
         android:padding="8dp"
         android:text="Send OTP"
-         />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_phoneNumber"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/et_enterOtp"
@@ -104,13 +117,16 @@
         android:layout_below="@id/bt_sendOtp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="136dp"
         android:background="@drawable/back1"
         android:gravity="center_horizontal"
         android:hint="OTP"
         android:inputType="number"
-        android:visibility="invisible"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frame3" />
 
     <TextView
         android:id="@+id/tv_resendOtp"
@@ -118,24 +134,31 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_enterOtp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="96dp"
+        android:layout_marginTop="10dp"
         android:padding="4dp"
         android:text="Didn't Recieve OTP? Resend OTP"
-        android:visibility="invisible" />
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_enterOtp" />
 
     <Button
-        android:background="@drawable/back_button"
         android:id="@+id/bt_verifyOtp"
         android:layout_width="200dp"
         android:layout_height="45dp"
         android:layout_below="@+id/tv_resendOtp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="108dp"
+        android:background="@drawable/back_button"
         android:padding="8dp"
         android:text="Verify OTP"
-        android:visibility="invisible" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_resendOtp"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -143,7 +166,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="474dp"
-        android:layout_marginEnd="181dp" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
