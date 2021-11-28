@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="360dp"
+    android:layout_width="330dp"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
@@ -98,7 +98,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxHeight="300dp"
                 android:background="#FF1E1C1C"
