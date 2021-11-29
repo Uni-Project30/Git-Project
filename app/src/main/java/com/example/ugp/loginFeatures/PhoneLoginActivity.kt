@@ -162,8 +162,10 @@ class PhoneLoginActivity : AppCompatActivity() {
                     val user = hashMapOf(
 
                         "name" to name ,
-                        "email" to String(),
-                        "phone" to phoneNumber
+                        "email" to "",
+                        "phone" to phoneNumber,
+                        "doc_id" to task.result.user!!.uid,
+                        "photo_url" to task.result.user!!.photoUrl.toString()
                     )
 
                     db.collection("users")

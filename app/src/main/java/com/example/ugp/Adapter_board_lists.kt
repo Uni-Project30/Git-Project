@@ -142,7 +142,8 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
                     "list_text" to data[position].name,
                     "description" to "",
                     "start_date" to "",
-                    "end_date" to ""
+                    "end_date" to "",
+                    "members" to ArrayList<String>()
                 )
 
                 db.collection("boards")
