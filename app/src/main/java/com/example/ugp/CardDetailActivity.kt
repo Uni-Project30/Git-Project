@@ -23,6 +23,8 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
     private var board_name : String? = ""
     private var card_id : String? = ""
     private var list_name : String? = ""
+    private var card_name : String? = ""
+    private var list_text : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,7 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         setContentView(binding.root)
 
         setSupportActionBar(binding.aboutCardToolbar)
-        binding.aboutCardToolbar.navigationIcon = ResourcesCompat.getDrawable(resources,
+        /*binding.aboutCardToolbar.navigationIcon = ResourcesCompat.getDrawable(resources,
             R.drawable.ic_round_arrow_back_24, resources.newTheme())
         binding.aboutCardToolbar.navigationIcon?.colorFilter = PorterDuffColorFilter(
             ResourcesCompat
@@ -40,14 +42,14 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         binding.aboutCardToolbar.setNavigationOnClickListener{
             val intent = Intent(this, BoardActivity::class.java)
             intent.putExtra("boardName", binding.tvCardName.text.toString())
-            startActivity(intent)
-        }
+            startActivity(intent)*/
+        //}
 
          board_name = intent.extras?.getString("board_name")
          card_id = intent.extras?.getString("card_id")
          list_name = intent.extras?.getString("list_name")
-        val card_name = intent.extras?.getString("card_name")
-        val list_text = intent.extras?.getString("list_text")
+         card_name = intent.extras?.getString("card_name")
+         list_text = intent.extras?.getString("list_text")
 
 
 
@@ -92,6 +94,18 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             supportFragmentManager.beginTransaction()
                 .replace(android.R.id.content, fragment)
                 .commit()
+        }
+
+
+        binding.llMembers.setOnClickListener {
+
+            val intent = Intent(this,CardMemberActivity::class.java)
+            intent.putExtra("card_id",card_id)
+            intent.putExtra("board_name",board_name)
+            intent.putExtra("list_name",list_name)
+
+            startActivity(intent)
+
         }
 
 
@@ -154,11 +168,11 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
     }
 
-    override fun onBackPressed() {
+   /* override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this, BoardActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
-    }
+    }*/
 }

@@ -98,13 +98,29 @@
             android:padding="12dp"
             app:drawableRightCompat="@android:drawable/checkbox_off_background" />
 
-        <TextView
-            android:id="@+id/tv_cardMembers"
+        <LinearLayout
+            android:id="@+id/ll_members"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:drawablePadding="8dp"
-            app:drawableLeftCompat="@drawable/ic_round_person_24" />
+            android:padding="8dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/ic_round_person_24"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:hint="Members... "/>
+
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -126,7 +126,9 @@ class LoginActivity : AppCompatActivity() {
 
                         "name" to task.result.user?.displayName,
                         "email" to task.result.user?.email,
-                        "phone" to task.result.user?.phoneNumber
+                        "phone" to task.result.user?.phoneNumber,
+                        "doc_id" to task.result.user!!.uid,
+                        "photo_url" to task.result.user!!.photoUrl.toString()
                     )
 
                     db.collection("users")
@@ -181,7 +183,8 @@ class LoginActivity : AppCompatActivity() {
                     finish()
 
                 }else{
-                    Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"No such user found", Toast.LENGTH_SHORT).show()
+                    Log.d("login",it.exception?.message.toString())
                 }
 
             }
