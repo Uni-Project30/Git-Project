@@ -58,7 +58,6 @@ class BoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
 
-
         rv = findViewById(R.id.boards_list_rv)
         rv.apply {
             layoutManager = LinearLayoutManager(this@BoardActivity,LinearLayoutManager.HORIZONTAL,false)

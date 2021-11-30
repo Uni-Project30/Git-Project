@@ -183,6 +183,20 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+
+        with(builder){
+            setTitle("Are you sure you want to exit?")
+            setPositiveButton("Yes"){ _, _ ->
+                finish()
+            }
+            setNegativeButton("No"){ _, _ ->
+
+            }
+            show()
+        }
+    }
 
     // function for signing out
     private fun signOut() {
