@@ -6,7 +6,7 @@
         <item
             android:id="@+id/about_board"
             android:title="@string/about_board"
-            android:icon="@drawable/ic_outline_info_24"/>
+            android:icon="@drawable/ic_outline_info_24" />
 
     </group>
 

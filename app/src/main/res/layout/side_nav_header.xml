@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="230dp"
-    android:background="#0084D1"
+    android:background="#222222"
     android:gravity="left"
     android:orientation="vertical"
     android:paddingTop="20dp"
@@ -14,11 +14,12 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/nav_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:src="@drawable/icon_profile" />
