@@ -46,16 +46,15 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
         holder.bind(input)
 
         //setting up recyclerview for the cards list
-        val layout  = LinearLayoutManager(holder.rv_l.context)
-        layout.initialPrefetchItemCount = c_list.size
+        val layout = LinearLayoutManager(holder.rv_l.context)
+//        layout.initialPrefetchItemCount = c_list.size
 
         holder.rv_l.apply {
             layoutManager = layout
-            setRecycledViewPool(viewPool)
+//            setRecycledViewPool(viewPool)
         }
 
-        for(j in data)
-        {
+        for (j in data) {
             db.collection("boards")
                 .document(data[position].board_name)
                 .collection("lists")
@@ -64,11 +63,11 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
                 .get()
                 .addOnSuccessListener {
                     c_list = ArrayList()
-                    for(i in it) {
+                    for (i in it) {
                         c_list.add(i.toObject(data_boards_list_card::class.java))
-                        Log.i("error","Some error")
+                        Log.i("error", "Some error")
                     }
-                    Log.i("Message","go the data")
+                    Log.i("Message", "go the data")
                     holder.rv_l.adapter = Adapter_list_cards(c_list)
                     holder.rv_l.adapter!!.notifyDataSetChanged()
                 }
@@ -109,6 +108,7 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
 
         //getting
         holder.add_card.setOnClickListener {
+            holder.card_name.setText("")
             holder.card_name.visibility = View.VISIBLE
             holder.tick1.visibility = View.VISIBLE
             holder.cancel1.visibility = View.VISIBLE
@@ -126,6 +126,7 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
             holder.add_card.visibility = View.VISIBLE
 
             if (holder.card_name.text.toString().isNotEmpty()) {
+
 
                 val card_id = db.collection("boards")
                     .document(data[position].board_name)
@@ -146,6 +147,8 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
                     "members" to ArrayList<String>()
                 )
 
+
+
                 db.collection("boards")
                     .document(data[position].board_name)
                     .collection("lists")
@@ -153,6 +156,26 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
                     .collection("cards")
                     .document(card_id)
                     .set(d)
+
+
+                for (j in data) {
+                    db.collection("boards")
+                        .document(data[position].board_name)
+                        .collection("lists")
+                        .document(data[position].doc_name)
+                        .collection("cards")
+                        .get()
+                        .addOnSuccessListener {
+                            c_list = ArrayList()
+                            for (i in it) {
+                                c_list.add(i.toObject(data_boards_list_card::class.java))
+                                Log.i("error", "Some error")
+                            }
+                            Log.i("Message", "go the data")
+                            holder.rv_l.adapter = Adapter_list_cards(c_list)
+                            holder.rv_l.adapter!!.notifyDataSetChanged()
+                        }
+                }
             }
         }
 

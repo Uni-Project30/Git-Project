@@ -3,6 +3,7 @@ package com.example.ugp
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -58,6 +60,8 @@ class BoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
 
+        //set status bar to blue
+        window.statusBarColor = ContextCompat.getColor(this,R.color.blue1)
 
         rv = findViewById(R.id.boards_list_rv)
         rv.apply {
@@ -156,14 +160,12 @@ class BoardActivity : AppCompatActivity() {
                     // this will take to star board activity
                     val intent = Intent(this, StarredBoardActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
 
                 R.id.profile -> {
                     // this will take to profile activity
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
 
                 R.id.logout -> {

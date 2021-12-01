@@ -64,34 +64,33 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.064" />
 
-                <EditText
-                    android:id="@+id/list_name"
-                    android:layout_width="226dp"
-                    android:layout_height="44dp"
-                    android:hint="Add list name"
-                    android:maxLines="1"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.552"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.054" />
+                    <EditText
+                        android:id="@+id/list_name"
+                        android:layout_width="220dp"
+                        android:layout_height="44dp"
+                        android:hint="Add list name"
+                        android:maxLines="1"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
-                <ImageView
-                    android:id="@+id/tick_btn"
-                    android:layout_width="38dp"
-                    android:layout_height="41dp"
-                    android:layout_marginEnd="44dp"
-                    android:src="@drawable/icon_check"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/list_name"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.064" />
+                    <ImageView
+                        android:id="@+id/tick_btn"
+                        android:layout_width="38dp"
+                        android:layout_height="41dp"
+                        android:src="@drawable/icon_check"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/list_name"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.064"
+                         />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>
 
@@ -100,7 +99,7 @@
                 android:id="@+id/rv_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxHeight="300dp"
+                android:maxHeight= "100dp"
                 android:background="#FF1E1C1C"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -206,6 +205,8 @@
 
 </RelativeLayout>
 
+
+<!--    app:layout_contraintEnd_toEndOf="parent"-->
 
 <!--<FrameLayout-->
 <!--android:id="@+id/f2"-->

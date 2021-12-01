@@ -1,9 +1,12 @@
 package com.example.ugp
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -21,6 +24,12 @@ class ProfileActivity : AppCompatActivity() {
         val num = findViewById<EditText>(R.id.numText)
         val image = findViewById<ImageView>(R.id.profile)
 
+        // set status bar color black
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+        //set status bar white
+        window.statusBarColor = ContextCompat.getColor(this,R.color.white)
 
         //setting edittext as non-clickable
         name.isEnabled = false

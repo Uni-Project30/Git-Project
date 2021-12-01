@@ -17,7 +17,7 @@
             android:hint="@string/name"
             android:autofillHints="name"
             android:inputType="text"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
