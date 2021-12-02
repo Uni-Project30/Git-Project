@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -44,12 +45,14 @@ class CardMemberAdapter(
 
     override fun onBindViewHolder(holder: CardMemberAdapter.ViewHolder, position: Int) {
 
+
+
         holder.name.text = memberNameList[position]
         val user_id = doc_idList[position]
 
         val board_name = firebaseDetails["board_name"]
         val card_id  = firebaseDetails["card_id"]
-        var list_name = firebaseDetails["list_name"]
+        val list_name = firebaseDetails["list_name"]
         var member_idList = arrayListOf<String>()
 
 
@@ -77,18 +80,19 @@ class CardMemberAdapter(
             .document(card_id.toString())
             .get()
             .addOnSuccessListener{
-
-            //    member_idList.addAll((it["members"]) as ArrayList<String>)
-
                 member_idList = it["members"] as ArrayList<String>
-                val a = it["members"]
-                Log.d("firebase",a.toString())
-                Log.d("members",member_idList.toString())
-
+                Log.d("Yash watching $position",member_idList.toString())
                 if (member_idList.contains(user_id)){
-                    holder.checkBox.isVisible = true
-                }
+                Log.d("memberIdList contains",user_id)
+                holder.checkBox.isVisible = true
             }
+            else {Log.d("member notcontains",user_id)}
+            }.addOnFailureListener {
+                Log.d("failure",it.toString())
+            }
+        Log.d(position.toString(),user_id)
+
+
 
 
 
@@ -101,7 +105,6 @@ class CardMemberAdapter(
 
                 holder.checkBox.isVisible = false
 
-                member_idList.remove(user_id)
 
                 db.collection("boards")
                     .document(board_name.toString())
@@ -109,7 +112,7 @@ class CardMemberAdapter(
                     .document(list_name.toString())
                     .collection("cards")
                     .document(card_id.toString())
-                    .update("members",member_idList)
+                    .update("members",FieldValue.arrayRemove(user_id))
                     .addOnSuccessListener {
                         Log.d("member ","removed")
                     }.addOnFailureListener {
@@ -120,7 +123,6 @@ class CardMemberAdapter(
             else{
 
                 holder.checkBox.isVisible = true
-                member_idList.add(user_id)
 
                 db.collection("boards")
                     .document(board_name.toString())
@@ -128,13 +130,15 @@ class CardMemberAdapter(
                     .document(list_name.toString())
                     .collection("cards")
                     .document(card_id.toString())
-                    .update("members",member_idList)
+                    .update("members",FieldValue.arrayUnion(user_id))
                     .addOnSuccessListener {
                     Log.d("member ","added")
 
                 }.addOnFailureListener {
                     Log.d("member ",it.message.toString())
                 }
+
+
 
             }
 
