@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        window.statusBarColor = ContextCompat.getColor(this,R.color.blue1)
+        window.statusBarColor = ContextCompat.getColor(this,R.color.grey_status)
 
 
         //Get boards List in Recycler View
@@ -185,6 +185,20 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+
+        with(builder){
+            setTitle("Are you sure you want to exit?")
+            setPositiveButton("Yes"){ _, _ ->
+                finish()
+            }
+            setNegativeButton("No"){ _, _ ->
+
+            }
+            show()
+        }
+    }
 
     // function for signing out
     private fun signOut() {

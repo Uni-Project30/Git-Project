@@ -4,24 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="230dp"
-    android:background="#0084D1"
+    android:background="#222222"
     android:gravity="left"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:paddingTop="20dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/nav_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/icon_profile" />
+        android:src="@drawable/icon_profile"
+        />
 
     <TextView
         android:id="@+id/nav_name"
@@ -29,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_image"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
@@ -44,12 +48,58 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_name"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
         android:hint="Email"
         android:padding="5dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 </RelativeLayout>
+
+
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/nav_image"-->
+<!--&lt;!&ndash;<<<<<<< HEAD&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="100dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="100dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_alignParentStart="true"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_alignParentTop="true"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_marginStart="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_marginLeft="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_marginTop="20dp"&ndash;&gt;-->
+<!--&lt;!&ndash;=======&ndash;&gt;-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--&lt;!&ndash;&gt;>>>>>> origin/main&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_marginEnd="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_marginRight="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:src="@drawable/icon_profile" &ndash;&gt;-->
+<!--        />-->
+
+
+<!--<TextView-->
+<!--        android:id="@+id/nav_email"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--<<<<<<< HEAD-->
+<!--        android:layout_below="@+id/nav_name"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="0dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--=======-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--&gt;>>>>>> origin/main-->
+<!--        android:hint="Email"-->
+<!--        android:padding="5dp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="@color/white" />-->

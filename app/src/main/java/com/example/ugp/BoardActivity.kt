@@ -61,7 +61,7 @@ class BoardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_board)
 
         //set status bar to blue
-        window.statusBarColor = ContextCompat.getColor(this,R.color.blue1)
+        window.statusBarColor = ContextCompat.getColor(this,R.color.blue_status)
 
         rv = findViewById(R.id.boards_list_rv)
         rv.apply {

@@ -5,7 +5,7 @@
     android:layout_height="50dp"
     android:layout_marginTop="0.2dp"
     android:layout_marginBottom="0.2dp"
-    android:background="@color/black"
+    android:background="#222222"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -33,6 +33,6 @@
         android:layout_height="30dp"
         android:layout_marginEnd="15dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/ic_round_star_yellow_24" />
+        app:srcCompat="@drawable/ic_round_star_outline_24" />
 
 </LinearLayout>

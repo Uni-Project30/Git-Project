@@ -80,6 +80,8 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
             holder.list_name.visibility = View.VISIBLE
             holder.list_name.setText(holder.list_name_t.text.toString())
             holder.list_name_t.visibility = View.INVISIBLE
+            holder.cancel.visibility = View.VISIBLE
+            holder.list_name.visibility = View.VISIBLE
         }
 
         //on clicking of tick for list name

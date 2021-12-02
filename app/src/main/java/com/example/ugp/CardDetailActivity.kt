@@ -55,11 +55,11 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
 
         // set status bar color black
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        }
         //set status bar white
-        window.statusBarColor = ContextCompat.getColor(this,R.color.white)
+        window.statusBarColor = ContextCompat.getColor(this,R.color.black)
 
 
         db.collection("boards")

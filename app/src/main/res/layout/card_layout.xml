@@ -20,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#322F2F">
+            android:background="#2c2c2e">
 
             <TextView
                 android:id="@+id/card_name"

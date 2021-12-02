@@ -1,6 +1,7 @@
 package com.example.ugp
 
 import android.os.Build
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,11 +26,11 @@ class ProfileActivity : AppCompatActivity() {
         val image = findViewById<ImageView>(R.id.profile)
 
         // set status bar color black
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        }
         //set status bar white
-        window.statusBarColor = ContextCompat.getColor(this,R.color.white)
+        window.statusBarColor = ContextCompat.getColor(this,R.color.black_profile)
 
         //setting edittext as non-clickable
         name.isEnabled = false
@@ -85,5 +86,10 @@ class ProfileActivity : AppCompatActivity() {
                     name.setText("")
                 }
         }
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this,MainActivity::class.java))
+        finish()
     }
 }
