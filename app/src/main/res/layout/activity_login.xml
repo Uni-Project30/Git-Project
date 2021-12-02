@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +8,9 @@
     android:background="@color/white"
     tools:context=".loginFeatures.LoginActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <FrameLayout
         android:id="@+id/frame1"
         android:layout_width="match_parent"
@@ -32,15 +35,12 @@
                 android:id="@+id/imageView4"
                 android:layout_width="74dp"
                 android:layout_height="70dp"
-                android:layout_marginEnd="5dp"
-                android:src="@drawable/logo"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/logo_name1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
-                app:layout_constraintHorizontal_bias="0.935"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.27"
-                tools:layout_editor_absoluteX="20dp" />
+                app:layout_constraintVertical_bias="0.27" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -50,9 +50,7 @@
                 android:src="@drawable/logo_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.984"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="10dp"
+                app:layout_constraintHorizontal_bias="0.479"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.246" />
@@ -66,6 +64,7 @@
         android:layout_height="40dp"
         android:layout_below="@+id/frame1"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="-10dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Login"
         android:textColor="@color/black"
@@ -195,4 +194,24 @@
         app:layout_constraintTop_toBottomOf="@id/tv_google_login"
         app:layout_constraintVertical_bias="0.0" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
+<!--    <TextView-->
+<!--        android:id="@+id/lg"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_below="@+id/frame1"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--<<<<<<< HEAD-->
+<!--        android:layout_marginTop="-10dp"-->
+<!--=======-->
+<!--&gt;>>>>>> origin/main-->
+<!--        android:gravity="center_horizontal|center_vertical"-->
+<!--        android:text="Login"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="30dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/frame1" />-->

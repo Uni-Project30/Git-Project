@@ -1,11 +1,14 @@
 package com.example.ugp.loginFeatures
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.ugp.MainActivity
 import com.example.ugp.R
 import com.example.ugp.databinding.ActivityLoginBinding
@@ -29,6 +32,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //set status bar blue
+        window.statusBarColor = ContextCompat.getColor(this,R.color.blue2)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)

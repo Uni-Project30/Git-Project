@@ -4,10 +4,12 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.ugp.databinding.ActivityCardDetailBinding
 import com.google.firebase.firestore.ktx.firestore
@@ -51,6 +53,13 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
          card_name = intent.extras?.getString("card_name")
          list_text = intent.extras?.getString("list_text")
 
+
+        // set status bar color black
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        }
+        //set status bar white
+        window.statusBarColor = ContextCompat.getColor(this,R.color.black)
 
 
         db.collection("boards")

@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.ugp.MainActivity
+import com.example.ugp.R
 import com.example.ugp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -22,6 +24,9 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
+
+        //set status bar blue
+        window.statusBarColor = ContextCompat.getColor(this, R.color.blue2)
 
         setContentView(binding.root)
         // initialising firebase auth

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,6 +49,9 @@ class StarredBoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_starred_board)
+
+        //set status bar white
+        window.statusBarColor = ContextCompat.getColor(this,R.color.blue1)
 
         // Assigning variables
         recyclerViewStar = findViewById(R.id.recycler_view_star_boards)
