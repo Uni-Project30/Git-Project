@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.ugp.MainActivity
+import com.example.ugp.R
 import com.example.ugp.databinding.ActivityPhoneLoginBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
@@ -27,6 +29,9 @@ class PhoneLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //set status bar blue
+        window.statusBarColor = ContextCompat.getColor(this, R.color.blue2)
 
         binding.progressBar.visibility = View.INVISIBLE
 

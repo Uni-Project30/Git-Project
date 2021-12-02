@@ -19,7 +19,6 @@
             android:inputType="text"
             android:background="#353434"
             android:textColor="@color/white"/>
-
     </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>
