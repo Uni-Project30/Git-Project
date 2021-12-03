@@ -249,7 +249,7 @@ class MemberImageAdapter(private val memberList: ArrayList<String>, private val 
 
                 if (it["photo_url"].toString().isEmpty()){
 
-                    holder.image.setImageResource(R.drawable.icon_profile)
+                    holder.image.setImageResource(R.drawable.ic_round_person_24)
                 }
                 else{
                     Glide.with(context)

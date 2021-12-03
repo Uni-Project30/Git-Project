@@ -17,7 +17,8 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#007AC0" />
+            android:background="#3f3f41"
+            app:titleTextColor="@color/white" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/app_bar"
-            android:layout_marginTop="2dp"
+            android:background="#222222"
             android:clipToPadding="false"
             android:padding="4dp"
             tools:listitem="@layout/board_item" />
@@ -43,8 +44,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="#61bd50"
             android:contentDescription="@string/creates_new_boards"
-            android:src="@drawable/ic_add"/>
+            android:src="@drawable/ic_add" />
 
 
     </RelativeLayout>
@@ -55,7 +57,10 @@
         android:id="@+id/side_nav1"
         app:headerLayout="@layout/side_nav_header"
         app:menu="@menu/side_nav"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:background="#2c2c2e"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white">
 
     </com.google.android.material.navigation.NavigationView>
 

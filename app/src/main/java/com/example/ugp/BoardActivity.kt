@@ -58,7 +58,6 @@ class BoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
 
-
         rv = findViewById(R.id.boards_list_rv)
         rv.apply {
             layoutManager = LinearLayoutManager(this@BoardActivity,LinearLayoutManager.HORIZONTAL,false)
@@ -361,6 +360,8 @@ class BoardActivity : AppCompatActivity() {
                     rightMemberHeader.add(rightMemberHeaderX)
                     val memberImageView : CircleImageView = rightMemberHeaderX.findViewById(R.id.member_image)
                     val memberNameText : TextView = rightMemberHeaderX.findViewById(R.id.member_name)
+
+
 
                     if (mAuth.currentUser!!.photoUrl != null) {
                         val url = mAuth.currentUser!!.photoUrl

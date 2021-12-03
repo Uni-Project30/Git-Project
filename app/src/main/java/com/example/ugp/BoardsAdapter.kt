@@ -1,5 +1,6 @@
 package com.example.ugp
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>(){
                 val intent = Intent(v?.context, BoardActivity::class.java)
                 intent.putExtra("boardName",itemView.tv_board_name.text.toString())
                 itemView.context.startActivity(intent)
+                (context as Activity).finish()
             }
         }
 

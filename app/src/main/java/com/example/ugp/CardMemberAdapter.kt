@@ -62,7 +62,7 @@ class CardMemberAdapter(
 
             Log.d("member pic",pic_url)
 
-            holder.memberImage.setImageResource(R.drawable.icon_profile)
+            holder.memberImage.setImageResource(R.drawable.ic_round_person_24)
 
         }else{
             Glide.with(context)
