@@ -6,23 +6,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.list_cardview1.view.*
-import kotlin.collections.ArrayList
 
 
-class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val context: Context) :
+class Adapter_board_lists(
+    private val data: ArrayList<data_board_lists>,
+    val context: Context,
+    val width: Int
+) :
     RecyclerView.Adapter<Adapter_board_lists.ViewHolder>() {
 
-    private val viewPool = RecyclerView.RecycledViewPool()
     private var c_list: ArrayList<data_boards_list_card> = ArrayList()
     private val db = Firebase.firestore
 
@@ -44,6 +43,15 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val input = data[position]
         holder.bind(input)
+
+        //setting width of recylerview
+
+
+//        val params: ViewGroup.LayoutParams = holder.rv_l.getLayoutParams()
+//        params.width = (width * 0.75).toInt()
+//        holder.card.layoutParams.width = (width * 0.75).toInt()
+//        holder.rv_l.setLayoutParams(params)
+
 
         //setting up recyclerview for the cards list
         val layout = LinearLayoutManager(holder.rv_l.context)
@@ -197,6 +205,7 @@ class Adapter_board_lists(private val data: ArrayList<data_board_lists>, val con
 
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        var card = v.findViewById<CardView>(R.id.main_card)
         val rv_l = v.findViewById<RecyclerView>(R.id.rv_list)
         val card_view = v.findViewById<CardView>(R.id.card_name_view)
         val tick = v.findViewById<ImageView>(R.id.tick_btn)

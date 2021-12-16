@@ -133,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
                         "name" to task.result.user?.displayName,
                         "email" to task.result.user?.email,
                         "phone" to task.result.user?.phoneNumber,
-                        "doc_id" to task.result.user!!.uid,
+                        "user_id" to task.result.user!!.uid,
                         "photo_url" to task.result.user!!.photoUrl.toString()
                     )
 
