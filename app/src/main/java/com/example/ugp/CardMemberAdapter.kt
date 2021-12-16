@@ -21,8 +21,7 @@ class CardMemberAdapter(
     private val photo_urlList: ArrayList<String?>,
     private val firebaseDetails: Map<String, String?>,
     val context: Context
-) :RecyclerView.Adapter<CardMemberAdapter.ViewHolder>() {
-
+) : RecyclerView.Adapter<CardMemberAdapter.ViewHolder>() {
 
 
     private val mAuth = Firebase.auth
@@ -35,8 +34,8 @@ class CardMemberAdapter(
         val inflater = LayoutInflater.from(parent.context)
 
 
-        val v = inflater.inflate(R.layout.card_card_member,parent,false)
-        Log.d("card","reached")
+        val v = inflater.inflate(R.layout.card_card_member, parent, false)
+        Log.d("card", "reached")
 
 
         return ViewHolder(v)
@@ -48,24 +47,24 @@ class CardMemberAdapter(
         val user_id = doc_idList[position]
 
         val board_name = firebaseDetails["board_name"]
-        val card_id  = firebaseDetails["card_id"]
+        val card_id = firebaseDetails["card_id"]
         var list_name = firebaseDetails["list_name"]
         var member_idList = arrayListOf<String>()
 
 
         val pic_url = photo_urlList[position].toString()
 
-        if (pic_url.isEmpty()){
+        if (pic_url.isEmpty()) {
 
-            Log.d("member pic",pic_url)
+            Log.d("member pic", pic_url)
 
             holder.memberImage.setImageResource(R.drawable.icon_profile)
 
-        }else{
+        } else {
             Glide.with(context)
                 .load(pic_url)
                 .into(holder.memberImage)
-            Log.d("member pic not null",pic_url)
+            Log.d("member pic not null", pic_url)
         }
 
 
@@ -76,16 +75,16 @@ class CardMemberAdapter(
             .collection("cards")
             .document(card_id.toString())
             .get()
-            .addOnSuccessListener{
+            .addOnSuccessListener {
 
-            //    member_idList.addAll((it["members"]) as ArrayList<String>)
+                //    member_idList.addAll((it["members"]) as ArrayList<String>)
 
                 member_idList = it["members"] as ArrayList<String>
                 val a = it["members"]
-                Log.d("firebase",a.toString())
-                Log.d("members",member_idList.toString())
+                Log.d("firebase", a.toString())
+                Log.d("members", member_idList.toString())
 
-                if (member_idList.contains(user_id)){
+                if (member_idList.contains(user_id)) {
                     holder.checkBox.isVisible = true
                 }
             }
@@ -95,9 +94,9 @@ class CardMemberAdapter(
 
         holder.itemView.setOnClickListener {
 
-            Log.d("member",user_id)
+            Log.d("member", user_id)
 
-            if (holder.checkBox.isVisible){
+            if (holder.checkBox.isVisible) {
 
                 holder.checkBox.isVisible = false
 
@@ -109,15 +108,14 @@ class CardMemberAdapter(
                     .document(list_name.toString())
                     .collection("cards")
                     .document(card_id.toString())
-                    .update("members",member_idList)
+                    .update("members", member_idList)
                     .addOnSuccessListener {
-                        Log.d("member ","removed")
+                        Log.d("member ", "removed")
                     }.addOnFailureListener {
-                        Log.d("member ",it.message.toString())
+                        Log.d("member ", it.message.toString())
                     }
 
-            }
-            else{
+            } else {
 
                 holder.checkBox.isVisible = true
                 member_idList.add(user_id)
@@ -128,13 +126,13 @@ class CardMemberAdapter(
                     .document(list_name.toString())
                     .collection("cards")
                     .document(card_id.toString())
-                    .update("members",member_idList)
+                    .update("members", member_idList)
                     .addOnSuccessListener {
-                    Log.d("member ","added")
+                        Log.d("member ", "added")
 
-                }.addOnFailureListener {
-                    Log.d("member ",it.message.toString())
-                }
+                    }.addOnFailureListener {
+                        Log.d("member ", it.message.toString())
+                    }
 
             }
 
