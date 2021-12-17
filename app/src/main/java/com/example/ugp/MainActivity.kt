@@ -29,6 +29,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.create_new_board.*
+
 class MainActivity : AppCompatActivity() {
 
     // variables for side navigation
@@ -43,16 +44,16 @@ class MainActivity : AppCompatActivity() {
     private val mAuth = FirebaseAuth.getInstance()
 
     //variables for adapter
-    private lateinit var myAdapter : BoardsAdapter
-    private lateinit var linearLayoutManager : LinearLayoutManager
-    private lateinit var listOfBoards : ArrayList<String>
-    private lateinit var listOfFavourites : ArrayList<String>
+    private lateinit var myAdapter: BoardsAdapter
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var listOfBoards: ArrayList<String>
+    private lateinit var listOfFavourites: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        window.statusBarColor = ContextCompat.getColor(this,R.color.grey_status)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.grey_status)
 
 
         //Get boards List in Recycler View
@@ -65,16 +66,32 @@ class MainActivity : AppCompatActivity() {
         db.collection("boards")
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    listOfBoards.add(document.getString("board name")!!)
-                    listOfFavourites.add(document.getString("favourite").toString())
+                for (doc in result) {
+                    db.collection("boards")
+                        .document(doc.get("board name").toString())
+                        .collection("authorised_users")
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (i in documents) {
+                                if (i["user_id"] == mAuth.currentUser!!.uid) {
+                                    listOfBoards.add(doc.getString("board name")!!)
+                                    listOfFavourites.add(doc.getString("favourite").toString())
+
+                                    myAdapter = BoardsAdapter(this, listOfBoards, listOfFavourites)
+                                    rv_boards.adapter = myAdapter
+                                    Log.d("Main Activity", "adapter set")
+                                }
+                            }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Loop2 error", Toast.LENGTH_SHORT).show()
+                            Log.d("msg", "Not authorised")
+                        }
                 }
-                myAdapter = BoardsAdapter(this, listOfBoards, listOfFavourites)
-                rv_boards.adapter = myAdapter
-                Log.d("Main Activity","adapter set")
+
             }
             .addOnFailureListener { exception ->
-                Toast.makeText(this,exception.message.toString(),Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, exception.message.toString(), Toast.LENGTH_SHORT).show()
             }
 
 
@@ -85,6 +102,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val header = side_nav.getHeaderView(0)
+
         //variables for assigning image,name and emailId
         val image = header.findViewById<ImageView>(R.id.nav_image)
         val name = header.findViewById<TextView>(R.id.nav_name)
@@ -98,20 +116,16 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-
         // assigning values to information variables
 
 //        val n= mAuth.currentUser!!.displayName
-        if(mAuth.currentUser!!.displayName.isNullOrEmpty())
-        {
+        if (mAuth.currentUser!!.displayName.isNullOrEmpty()) {
             db.collection("users").document(mAuth.currentUser!!.uid)
                 .get()
                 .addOnSuccessListener {
                     name.text = it.getString("name")
                 }
-        }
-        else
-        {
+        } else {
             name.text = mAuth.currentUser!!.displayName
         }
         email.text = mAuth.currentUser!!.email.toString()
@@ -165,14 +179,13 @@ class MainActivity : AppCompatActivity() {
 
                     val dialog: AlertDialog = builder.create()
                     dialog.show()
-
                 }
             }
             true
         }
 
         //Board Creating Button
-        btn_create_board.setOnClickListener{
+        btn_create_board.setOnClickListener {
             showCreateBoardDialog()
         }
     }
@@ -188,12 +201,12 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
 
-        with(builder){
+        with(builder) {
             setTitle("Are you sure you want to exit?")
-            setPositiveButton("Yes"){ _, _ ->
+            setPositiveButton("Yes") { _, _ ->
                 finish()
             }
-            setNegativeButton("No"){ _, _ ->
+            setNegativeButton("No") { _, _ ->
 
             }
             show()
@@ -215,13 +228,13 @@ class MainActivity : AppCompatActivity() {
         Firebase.auth.signOut()
     }
 
-    private fun showCreateBoardDialog(){
+    private fun showCreateBoardDialog() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         val dialogLayout = inflater.inflate(R.layout.create_new_board, null)
         val boardName = dialogLayout.findViewById<EditText>(R.id.et_board_name)
         val currentUser = mAuth.currentUser
-        var name : String? = ""
+        var name: String? = ""
         val favourite = "false"
         val about = ""
 
@@ -231,9 +244,9 @@ class MainActivity : AppCompatActivity() {
                 name = it.getString("name")
             }
 
-        with(builder){
+        with(builder) {
             setTitle("Create Board")
-            setPositiveButton("Create"){ _, _ ->
+            setPositiveButton("Create") { _, _ ->
 
                 val board = hashMapOf(
                     "board name" to boardName.text.toString(),
@@ -252,13 +265,31 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("favourite", favourite.toString())
                         startActivity(intent)
                         finish()
-                        Log.d("data in Firestore" , "true")
+                        Log.d("data in Firestore", "true")
                     }
                     .addOnFailureListener {
-                        Log.d("data in Firestore",it.message.toString() )
+                        Log.d("data in Firestore", it.message.toString())
+                    }
+
+                val auth_user = hashMapOf(
+                    "user_id" to currentUser!!.uid,
+                    "name" to name,
+                    "photo_url" to mAuth.currentUser!!.photoUrl.toString()
+                )
+
+                db.collection("boards")
+                    .document(boardName.text.toString())
+                    .collection("authorised_users")
+                    .document(mAuth.currentUser!!.uid)
+                    .set(auth_user)
+                    .addOnSuccessListener {
+                        Log.d("create","user_authorised")
+                    }
+                    .addOnFailureListener {
+                        Log.d("create","some error")
                     }
             }
-            setNegativeButton("Cancel"){ _, _ ->
+            setNegativeButton("Cancel") { _, _ ->
 
             }
             setView(dialogLayout)

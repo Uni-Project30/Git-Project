@@ -82,7 +82,7 @@ class RegisterActivity : AppCompatActivity() {
                        "name" to name,
                        "email" to email,
                        "phone" to "",
-                       "doc_id" to task.result.user!!.uid,
+                       "user_id" to task.result.user!!.uid,
                        "photo_url" to task.result.user!!.photoUrl.toString()
                    )
 
