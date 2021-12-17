@@ -5,45 +5,20 @@
       <map>
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_about.xml" value="0.1" />
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_board.xml" value="0.33" />
-        <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_login.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_phone_login.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_phone_login.xml" value="0.22" />
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/activity_register.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/layout/side_nav_header.xml" value="0.1" />
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/menu/board_menu.xml" value="0.5" />
         <entry key="..\:/Users/HP/Git-Project/app/src/main/res/menu/side_nav.xml" value="0.25" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/back1.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/back_button.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic__phone_login.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_add.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_board.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_outline_info_24.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_profile_white.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_round_arrow_back_24.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_round_person_24.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_round_person_add_24.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_round_star_24.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_round_star_outline_24.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/ic_round_star_yellow_24.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/icon_check.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/icon_email.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/icon_phone.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/icon_profile.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/icon_side_nav.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/drawable/login_back2_background.xml" value="0.2703125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/about_board_layout.xml" value="0.2" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_board.xml" value="0.176" />
+        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/about_board_layout.xml" value="0.1078125" />
+        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_board.xml" value="0.264" />
         <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_card_detail.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_phone_login.xml" value="0.2" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_profile.xml" value="0.264" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_register.xml" value="0.25052083333333336" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_starred_board.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/activity_profile.xml" value="0.1078125" />
         <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/board_item.xml" value="0.128125" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/card_card_member.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/card_layout.xml" value="0.176" />
+        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/card_layout.xml" value="0.264" />
         <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/create_new_board.xml" value="0.17777777777777778" />
         <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/list_cardview.xml" value="0.2" />
         <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/list_cardview1.xml" value="0.176" />
@@ -51,21 +26,29 @@
         <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/member_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/right_nav_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/layout/side_nav_header.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/menu/board_menu.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Sahil Doshi/OneDrive/Desktop/AndroidProj/Git-Project/app/src/main/res/menu/side_nav.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/drawable-v24/ic_baseline_calendar_today_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/drawable/ic_round_person_24.xml" value="0.26615384615384613" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_about.xml" value="0.1921875" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_board.xml" value="0.264" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_card_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_card_member.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_main.xml" value="0.23981481481481481" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_phone_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_register.xml" value="0.18611111111111112" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/activity_starred_board.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/board_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/card_card_member.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/card_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/card_member_image.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/create_new_board.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/fragment_card_description.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/list_cardview.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/list_cardview1.xml" value="0.1" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/member_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/right_nav_header.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asus/AndroidStudioProjects/Git-Project/app/src/main/res/layout/side_nav_header.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

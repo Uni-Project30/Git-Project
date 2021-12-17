@@ -10,12 +10,13 @@
           android:layout_height="match_parent"
           android:padding="8dp">
 
-          <ImageView
+          <de.hdodenhof.circleimageview.CircleImageView
               android:id="@+id/iv_member_photo"
               android:layout_width="30dp"
               android:layout_height="30dp"
               android:padding="4dp"
-              android:src="@drawable/icon_profile" />
+              android:src="@color/black" />
+
 
           <TextView
               android:id="@+id/tv_memberName"
@@ -34,8 +35,8 @@
               android:layout_alignParentEnd="true"
               android:layout_marginStart="4dp"
               android:padding="4dp"
-              android:visibility="invisible"
-              android:src="@drawable/icon_check" />
+              android:src="@drawable/icon_check"
+              android:visibility="invisible" />
 
 
       </RelativeLayout>

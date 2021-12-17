@@ -11,15 +11,14 @@ import com.google.firebase.ktx.Firebase
 
 class CardMemberActivity : AppCompatActivity() {
 
-    private var board_name : String? = ""
-    private var card_id : String? = ""
-    private var list_name : String? = ""
-    private var card_name : String? = ""
-    private var list_text : String? = ""
+    private var board_name: String? = ""
+    private var card_id: String? = ""
+    private var list_name: String? = ""
+    private var card_name: String? = ""
+    private var list_text: String? = ""
 
 
-
-    private lateinit var binding :ActivityCardMemberBinding
+    private lateinit var binding: ActivityCardMemberBinding
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var myAdapter: CardMemberAdapter
     private var db = Firebase.firestore
@@ -27,6 +26,7 @@ class CardMemberActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.d("OnCreate", "reached")
         binding = ActivityCardMemberBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
@@ -48,10 +48,33 @@ class CardMemberActivity : AppCompatActivity() {
         val doc_idList = arrayListOf<String>()
         val photo_urlList = arrayListOf<String?>()
 
+
         linearLayoutManager = LinearLayoutManager(this)
         binding.rvCardMembers.layoutManager = linearLayoutManager
 
-        db.collection("users")
+
+        db.collection("boards")
+            .document(board_name!!)
+            .collection("authorised_users")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                querySnapshot.documentChanges.forEach {
+
+                    memberList.add( it.document["name"]  .toString())
+                    doc_idList.add(it.document["user_id"].toString())
+                    photo_urlList.add(it.document["photo_url"].toString())
+
+                }
+
+                myAdapter =
+                    CardMemberAdapter(memberList, doc_idList, photo_urlList, firebaseDetails, this)
+                binding.rvCardMembers.adapter = myAdapter
+            }
+
+
+
+
+       /* db.collection("users")
             .get()
             .addOnSuccessListener { querySnapshot ->
 
@@ -62,12 +85,14 @@ class CardMemberActivity : AppCompatActivity() {
                     photo_urlList.add(it["photo_url"].toString())
                 }
 
-                Log.d("id",doc_idList.toString())
-                myAdapter = CardMemberAdapter(memberList,doc_idList,photo_urlList,firebaseDetails, this)
+
+                myAdapter =
+                    CardMemberAdapter(memberList, doc_idList, photo_urlList, firebaseDetails, this)
                 binding.rvCardMembers.adapter = myAdapter
 
-            }
+            }*/
 
     }
 }
+
 
