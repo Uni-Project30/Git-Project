@@ -52,7 +52,29 @@ class CardMemberActivity : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(this)
         binding.rvCardMembers.layoutManager = linearLayoutManager
 
-        db.collection("users")
+
+        db.collection("boards")
+            .document(board_name!!)
+            .collection("authorised_users")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                querySnapshot.documentChanges.forEach {
+
+                    memberList.add( it.document["name"]  .toString())
+                    doc_idList.add(it.document["user_id"].toString())
+                    photo_urlList.add(it.document["photo_url"].toString())
+
+                }
+
+                myAdapter =
+                    CardMemberAdapter(memberList, doc_idList, photo_urlList, firebaseDetails, this)
+                binding.rvCardMembers.adapter = myAdapter
+            }
+
+
+
+
+       /* db.collection("users")
             .get()
             .addOnSuccessListener { querySnapshot ->
 
@@ -68,7 +90,7 @@ class CardMemberActivity : AppCompatActivity() {
                     CardMemberAdapter(memberList, doc_idList, photo_urlList, firebaseDetails, this)
                 binding.rvCardMembers.adapter = myAdapter
 
-            }
+            }*/
 
     }
 }
