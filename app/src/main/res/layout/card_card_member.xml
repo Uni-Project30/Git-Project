@@ -35,8 +35,8 @@
               android:layout_alignParentEnd="true"
               android:layout_marginStart="4dp"
               android:padding="4dp"
-              android:visibility="invisible"
-              android:src="@drawable/icon_check" />
+              android:src="@drawable/icon_check"
+              android:visibility="invisible" />
 
 
       </RelativeLayout>

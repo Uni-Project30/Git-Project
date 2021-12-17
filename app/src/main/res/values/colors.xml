@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue1">#007AC0</color>
+    <color name="blue_status">#003060</color>
+    <color name="blue_toolbar">#00407e</color>
+    <color name="grey_status">#2c2c2e</color>
+    <color name="black_card_detail">#252525</color>
+    <color name="blue2">#1566e0</color>
+    <color name="black_profile">#1c1c1c</color>
+
 </resources>

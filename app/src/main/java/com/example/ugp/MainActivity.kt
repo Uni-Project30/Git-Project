@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
@@ -50,6 +51,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        window.statusBarColor = ContextCompat.getColor(this,R.color.grey_status)
+
 
         //Get boards List in Recycler View
         linearLayoutManager = LinearLayoutManager(applicationContext)
@@ -131,13 +135,11 @@ class MainActivity : AppCompatActivity() {
                     // this will take to star board activity
                     val intent = Intent(this, StarredBoardActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
                 R.id.profile -> {
                     // this will take to profile activity
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
                 R.id.logout -> {
                     // This will show a dialog box foe logging out

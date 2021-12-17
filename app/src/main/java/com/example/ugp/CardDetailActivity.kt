@@ -3,6 +3,7 @@ package com.example.ugp
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,10 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
+
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+
+import androidx.core.content.ContextCompat
+
+
 import com.example.ugp.databinding.ActivityCardDetailBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -59,6 +65,13 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
          card_name = intent.extras?.getString("card_name")
          list_text = intent.extras?.getString("list_text")
 
+
+        // set status bar color black
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        }
+        //set status bar white
+        window.statusBarColor = ContextCompat.getColor(this,R.color.black)
 
 
         db.collection("boards")
@@ -203,12 +216,48 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
     }
 
-    /*override fun onResume() {
+    override fun onResume() {
         super.onResume()
         Log.d("onResume","reached")
+
+        db.collection("boards")
+            .document(board_name.toString())
+            .collection("lists")
+            .document(list_name.toString())
+            .collection("cards")
+            .document(card_id.toString())
+            .get()
+            .addOnSuccessListener {
+
+                memberList = it.get("members") as ArrayList<String>
+                Log.d("member list","firebase reached")
+
+
+                if (memberList.isNullOrEmpty()){
+                    binding.rvImage.isVisible = false
+                    binding.hintText.isVisible = true
+                    binding.hintText.text = "Members..."
+
+                    Log.d("memberList","empty")
+
+                }else{
+                    binding.rvImage.isVisible = true
+                    binding.hintText.isVisible = false
+                    Log.d("memberList","not empty")
+
+                    binding.rvImage.apply {
+                        layoutManager = LinearLayoutManager(this@CardDetailActivity,LinearLayoutManager.HORIZONTAL,false)
+                    }
+                    binding.rvImage.adapter = MemberImageAdapter(memberList,this )
+                    Log.d("memberList","adapter attached")
+
+                }
+
+            }
+
     }
 
-    override fun onPause() {
+   /* override fun onPause() {
         super.onPause()
         Log.d("onPause","reached")
 
@@ -221,6 +270,8 @@ class CardDetailActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
          finish()
      }*/
 }
+
+
 
 class MemberImageAdapter(private val memberList: ArrayList<String>, private val context: Context) : RecyclerView.Adapter<MemberImageAdapter.ViewHolder>() {
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {

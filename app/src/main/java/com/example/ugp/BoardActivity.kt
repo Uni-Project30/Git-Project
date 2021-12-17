@@ -3,6 +3,7 @@ package com.example.ugp
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -57,6 +59,9 @@ class BoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
+
+        //set status bar to blue
+        window.statusBarColor = ContextCompat.getColor(this,R.color.blue_status)
 
         rv = findViewById(R.id.boards_list_rv)
         rv.apply {
@@ -155,14 +160,12 @@ class BoardActivity : AppCompatActivity() {
                     // this will take to star board activity
                     val intent = Intent(this, StarredBoardActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
 
                 R.id.profile -> {
                     // this will take to profile activity
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
 
                 R.id.logout -> {
@@ -221,7 +224,8 @@ class BoardActivity : AppCompatActivity() {
                 }
 
                 R.id.invite_members -> {
-                    drawerBoard.closeDrawer(GravityCompat.END)
+                   // drawerBoard.closeDrawer(GravityCompat.END)
+                    inviteMembers()
                 }
 
                 // Setting board as favourite
@@ -261,6 +265,67 @@ class BoardActivity : AppCompatActivity() {
         btn_create_list.setOnClickListener{
             showCreateBoardDialog()
         }
+    }
+
+    private fun inviteMembers() {
+        menu = rightNavBoard.menu
+        menu.clear()
+
+        // Setting the header views
+        var count = 0
+        val rightMemberHeader = arrayListOf<View>()
+        val rightHeader : View  = rightNavBoard.inflateHeaderView(R.layout.right_nav_header)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            rightHeader.elevation = 100.0f
+        }
+        val headerBack = rightHeader.findViewById<ImageButton>(R.id.imageButton_right_nav)
+        val headerText = rightHeader.findViewById<TextView>(R.id.right_nav_text)
+
+        headerText.setText(R.string.board_members)
+
+        db.collection("users").get()
+            .addOnSuccessListener { querySnapshot ->
+                querySnapshot.documentChanges.forEach { documentChange ->
+                    val rightMemberHeaderX = rightNavBoard.inflateHeaderView(R.layout.member_layout)
+                    rightMemberHeader.add(rightMemberHeaderX)
+                    val memberImageView : CircleImageView = rightMemberHeaderX.findViewById(R.id.member_image)
+                    val memberNameText : TextView = rightMemberHeaderX.findViewById(R.id.member_name)
+
+                    memberNameText.setOnClickListener {
+                        Log.d("try",memberNameText.text.toString())
+                    }
+
+
+                    if (mAuth.currentUser!!.photoUrl != null) {
+                        val url = mAuth.currentUser!!.photoUrl
+                        Glide.with(this)
+                            .load(url)
+                            .into(memberImageView)
+                    }
+
+                    memberNameText.text = documentChange.document.get("name").toString()
+
+                    count ++
+
+                }
+            }.addOnFailureListener { exception ->
+                Log.e("Member List", exception.message.toString())
+            }
+
+        // Task to be performed when back button is clicked
+        headerBack.setOnClickListener {
+            rightNavBoard.removeHeaderView(rightHeader)
+            for(i in 0 until count) {
+                rightNavBoard.removeHeaderView(rightMemberHeader[i])
+            }
+            menu.clear()
+            rightNavBoard.inflateMenu(R.menu.board_menu)
+            if(favouriteBoard == "true") {
+                menu.findItem(R.id.star_board).isVisible = false
+                menu.findItem(R.id.remove_star_board).isVisible = true
+            }
+        }
+
     }
 
 
@@ -361,6 +426,9 @@ class BoardActivity : AppCompatActivity() {
                     val memberImageView : CircleImageView = rightMemberHeaderX.findViewById(R.id.member_image)
                     val memberNameText : TextView = rightMemberHeaderX.findViewById(R.id.member_name)
 
+                    memberNameText.setOnClickListener {
+                        Log.d("try",memberNameText.text.toString())
+                    }
 
 
                     if (mAuth.currentUser!!.photoUrl != null) {
